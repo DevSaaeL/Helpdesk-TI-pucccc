@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detalhes do Chamado | Help Desk TI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        body {
+            background: #f5f7fb;
+        }
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #111827;
+            color: #fff;
+            z-index: 1000;
+        }
+
+        .sidebar-logo {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .sidebar-logo i {
+            font-size: 27px;
+            margin-right: 10px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 12px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            margin: 18px 12px 8px;
+            letter-spacing: .8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 11px 13px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #a6192e;
+            color: #fff;
+        }
+
+        .sidebar-menu a i {
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+        }
+
+        .breadcrumb-custom {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .breadcrumb-custom strong {
+            color: #111827;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #a6192e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .page-content {
+            padding: 28px;
+        }
+
+        .ticket-header {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-number {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .ticket-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .badge-status {
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-open {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .status-progress {
+            background: #fdf0f2;
+            color: #8b1426;
+        }
+
+        .status-finished {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .status-waiting {
+            background: #fefce8;
+            color: #a16207;
+        }
+
+        .priority-high {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .priority-medium {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .priority-low {
+            background: #fdf0f2;
+            color: #a6192e;
+        }
+
+        .sla-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #fff;
+            padding: 17px;
+            height: 100%;
+        }
+
+        .sla-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .sla-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .sla-danger {
+            color: #dc2626;
+        }
+
+        .sla-warning {
+            color: #d97706;
+        }
+
+        .sla-success {
+            color: #059669;
+        }
+
+        .card-custom {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-header-custom {
+            padding: 17px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .card-body-custom {
+            padding: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 18px;
+        }
+
+        .info-label {
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .description-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .chat-container {
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9fafb;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 18px;
+        }
+
+        .message.me {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 50%;
+            background: #a6192e;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .message.me .message-avatar {
+            order: 2;
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        .message-content {
+            max-width: 70%;
+        }
+
+        .message-name {
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .message-bubble {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            padding: 10px 13px;
+            border-radius: 10px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .message.me .message-bubble {
+            background: #a6192e;
+            color: #fff;
+            border-color: #a6192e;
+        }
+
+        .message-time {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .chat-input {
+            border-top: 1px solid #e5e7eb;
+            padding: 14px;
+            background: #fff;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 9px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 22px;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #a6192e;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            border: 3px solid #fff;
+            box-sizing: content-box;
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .timeline-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .timeline-time {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-top: 3px;
+        }
+
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .attachment-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attachment-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 7px;
+            background: #fdf0f2;
+            color: #a6192e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar-logo span,
+            .sidebar-menu span,
+            .sidebar-title {
+                display: none;
+            }
+
+            .sidebar-logo {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .sidebar-logo i {
+                margin: 0;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+            }
+
+            .sidebar-menu a i {
+                font-size: 20px;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .page-content {
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .ticket-title {
+                font-size: 19px;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    /* TEMA PUC-PR */
+    .btn-puc-primary {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #a6192e;
+        --bs-btn-border-color: #a6192e;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #8b1426;
+        --bs-btn-hover-border-color: #8b1426;
+        --bs-btn-active-bg: #8b1426;
+        --bs-btn-active-border-color: #8b1426;
+        color: #fff !important;
+        background-color: #a6192e !important;
+        border-color: #a6192e !important;
+    }
+
+    .btn-puc-primary:hover,
+    .btn-puc-primary:focus {
+        background-color: #8b1426 !important;
+        border-color: #8b1426 !important;
+    }
+
+    .btn-outline-puc {
+        --bs-btn-color: #a6192e;
+        --bs-btn-border-color: #a6192e;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #a6192e;
+        --bs-btn-hover-border-color: #a6192e;
+        color: #a6192e !important;
+        border-color: #a6192e !important;
+    }
+
+    .btn-outline-puc:hover,
+    .btn-outline-puc:focus {
+        color: #fff !important;
+        background-color: #a6192e !important;
+        border-color: #a6192e !important;
+    }
+
+    .text-primary {
+        color: #a6192e !important;
+    }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+        <i class="bi bi-headset"></i>
+        <span class="fw-bold">Help Desk TI</span>
+    </div>
+
+    <nav class="sidebar-menu">
+
+        <div class="sidebar-title">Principal</div>
+
+        <a href="dashboard.html">
+            <i class="bi bi-grid-1x2"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="chamados.html" class="active">
+            <i class="bi bi-ticket-detailed"></i>
+            <span>Chamados</span>
+        </a>
+
+        <a href="novo-chamado.html">
+            <i class="bi bi-plus-circle"></i>
+            <span>Novo chamado</span>
+        </a>
+
+        <a href="meus-chamados.html">
+            <i class="bi bi-person-lines-fill"></i>
+            <span>Meus chamados</span>
+        </a>
+
+        <a href="notificacoes.html">
+            <i class="bi bi-bell"></i>
+            <span>Notificações</span>
+        </a>
+
+        <div class="sidebar-title">Administração</div>
+
+        <a href="usuarios.html">
+            <i class="bi bi-people"></i>
+            <span>Usuários</span>
+        </a>
+
+        <a href="filiais.html">
+            <i class="bi bi-building"></i>
+            <span>Filiais</span>
+        </a>
+
+        <a href="qr-codes.html">
+            <i class="bi bi-qr-code"></i>
+            <span>QR Codes</span>
+        </a>
+
+        <a href="relatorios.html">
+            <i class="bi bi-bar-chart"></i>
+            <span>Relatórios</span>
+        </a>
+
+        <div class="sidebar-title">Conta</div>
+
+        <a href="perfil.html">
+            <i class="bi bi-person-circle"></i>
+            <span>Meu perfil</span>
+        </a>
+
+    </nav>
+</aside>
+
+
+<!-- MAIN -->
+<main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div class="breadcrumb-custom">
+            <i class="bi bi-ticket-detailed me-1"></i>
+            Chamados /
+            <strong>#000124</strong>
+        </div>
+
+        <div class="user-area">
+
+            <div class="text-end d-none d-sm-block">
+                <div class="fw-semibold" style="font-size:14px;">
+                    Samuel
+                </div>
+                <div class="text-muted" style="font-size:11px;">
+                    Técnico de TI
+                </div>
+            </div>
+
+            <div class="user-avatar">
+                SG
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="page-content">
+
+        <!-- HEADER DO CHAMADO -->
+        <div class="ticket-header">
+
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                <div>
+
+                    <div class="ticket-number">
+                        Chamado #000124
+                    </div>
+
+                    <div class="ticket-title">
+                        Computador não conecta na internet
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <span class="badge-status status-progress">
+                            <i class="bi bi-arrow-repeat me-1"></i>
+                            Em atendimento
+                        </span>
+
+                        <span class="badge-status priority-high">
+                            <i class="bi bi-exclamation-triangle me-1"></i>
+                            Alta prioridade
+                        </span>
+
+                        <span class="badge-status bg-light text-secondary">
+                            Internet
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="d-flex gap-2">
+
+                    <button class="btn btn-outline-secondary"
+                            onclick="voltarChamados()">
+
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Voltar
+
+                    </button>
+
+                    <button class="btn btn-success"
+                            onclick="finalizarChamado()">
+
+                        <i class="bi bi-check-circle me-1"></i>
+                        Finalizar
+
+                    </button>
+
+                    <button class="btn btn-outline-danger"
+                            onclick="cancelarChamado()">
+
+                        <i class="bi bi-x-circle me-1"></i>
+                        Cancelar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SLA -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-3">
+
+                <div class="sla-card">
+
+                    <div class="sla-label">
+                        Tempo para assumir
+                    </div>
+
+                    <div class="sla-value sla-success">
+                        03:42
+                    </div>
+
+                    <small class="text-muted">
+                        SLA: 05:00
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="sla-card">
+
+                    <div class="sla-label">
+                        Tempo em atendimento
+                    </div>
+
+                    <div class="sla-value sla-warning">
+                        08:21
+                    </div>
+
+                    <small class="text-muted">
+                        SLA: 10:00
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="sla-card">
+
+                    <div class="sla-label">
+                        SLA atual
+                    </div>
+
+                    <div class="sla-value sla-success">
+                        Dentro do prazo
+                    </div>
+
+                    <small class="text-muted">
+                        01:39 restantes
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="sla-card">
+
+                    <div class="sla-label">
+                        Tempo total
+                    </div>
+
+                    <div class="sla-value">
+                        12:03
+                    </div>
+
+                    <small class="text-muted">
+                        Desde a abertura
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- COLUNA ESQUERDA -->
+            <div class="col-lg-8">
+
+
+                <!-- INFORMAÇÕES -->
+                <div class="card-custom">
+
+                    <div class="card-header-custom">
+
+                        <i class="bi bi-info-circle me-2"></i>
+                        Informações do chamado
+
+                    </div>
+
+                    <div class="card-body-custom">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Solicitante
+                                    </div>
+
+                                    <div class="info-value">
+                                        João da Silva
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        E-mail
+                                    </div>
+
+                                    <div class="info-value">
+                                        joao.silva@empresa.com
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Telefone
+                                    </div>
+
+                                    <div class="info-value">
+                                        (43) 99999-9999
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Cidade
+                                    </div>
+
+                                    <div class="info-value">
+                                        Londrina
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Filial
+                                    </div>
+
+                                    <div class="info-value">
+                                        Matriz
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Setor
+                                    </div>
+
+                                    <div class="info-value">
+                                        Administrativo
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Bloco
+                                    </div>
+
+                                    <div class="info-value">
+                                        Bloco A
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Sala
+                                    </div>
+
+                                    <div class="info-value">
+                                        Sala 204
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="info-item">
+
+                                    <div class="info-label">
+                                        Técnico responsável
+                                    </div>
+
+                                    <div class="info-value">
+                                        Samuel
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-2">
+
+
+                        <div class="mt-3">
+
+                            <div class="info-label">
+                                Descrição
+                            </div>
+
+                            <div class="description-box">
+
+                                O computador do setor administrativo perdeu
+                                a conexão com a internet. O usuário informou
+                                que outros computadores da mesma sala estão
+                                funcionando normalmente.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHAT -->
+                <div class="card-custom">
+
+                    <div class="card-header-custom d-flex justify-content-between">
+
+                        <span>
+                            <i class="bi bi-chat-dots me-2"></i>
+                            Conversa do chamado
+                        </span>
+
+                        <span class="badge bg-success">
+                            Online
+                        </span>
+
+                    </div>
+
+
+                    <div class="chat-container">
+
+                        <div class="chat-messages" id="chatMessages">
+
+
+                            <div class="message">
+
+                                <div class="message-avatar">
+                                    JS
+                                </div>
+
+                                <div class="message-content">
+
+                                    <div class="message-name">
+                                        João da Silva
+                                    </div>
+
+                                    <div class="message-bubble">
+
+                                        Bom dia, estou sem internet
+                                        neste computador.
+
+                                    </div>
+
+                                    <div class="message-time">
+                                        Hoje às 09:10
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="message me">
+
+                                <div class="message-avatar">
+                                    SG
+                                </div>
+
+                                <div class="message-content">
+
+                                    <div class="message-name">
+                                        Samuel
+                                    </div>
+
+                                    <div class="message-bubble">
+
+                                        Bom dia! Vou verificar sua conexão
+                                        e os equipamentos de rede.
+
+                                    </div>
+
+                                    <div class="message-time">
+                                        Hoje às 09:13
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="message">
+
+                                <div class="message-avatar">
+                                    JS
+                                </div>
+
+                                <div class="message-content">
+
+                                    <div class="message-name">
+                                        João da Silva
+                                    </div>
+
+                                    <div class="message-bubble">
+
+                                        Certo. Os outros computadores
+                                        estão funcionando normalmente.
+
+                                    </div>
+
+                                    <div class="message-time">
+                                        Hoje às 09:16
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="chat-input">
+
+                            <div class="input-group">
+
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        title="Anexar arquivo">
+
+                                    <i class="bi bi-paperclip"></i>
+
+                                </button>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="messageInput"
+                                    placeholder="Digite uma mensagem..."
+                                    onkeydown="handleMessageKey(event)"
+                                >
+
+                                <button
+                                    class="btn btn-puc-primary"
+                                    onclick="enviarMensagem()">
+
+                                    <i class="bi bi-send"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ANEXOS -->
+                <div class="card-custom">
+
+                    <div class="card-header-custom">
+
+                        <i class="bi bi-paperclip me-2"></i>
+                        Anexos
+
+                    </div>
+
+                    <div class="card-body-custom">
+
+                        <div class="attachment-item">
+
+                            <div class="attachment-info">
+
+                                <div class="attachment-icon">
+                                    <i class="bi bi-image"></i>
+                                </div>
+
+                                <div>
+                                    <div class="fw-semibold"
+                                         style="font-size:13px;">
+                                        erro-internet.png
+                                    </div>
+
+                                    <small class="text-muted">
+                                        1.2 MB
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-sm btn-outline-puc">
+                                <i class="bi bi-download"></i>
+                            </button>
+
+                        </div>
+
+
+                        <button class="btn btn-outline-puc btn-sm mt-2">
+
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Adicionar anexo
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COLUNA DIREITA -->
+            <div class="col-lg-4">
+
+
+                <!-- AÇÕES -->
+                <div class="card-custom">
+
+                    <div class="card-header-custom">
+
+                        <i class="bi bi-lightning-charge me-2"></i>
+                        Ações
+
+                    </div>
+
+                    <div class="card-body-custom">
+
+                        <div class="d-grid gap-2">
+
+                            <button
+                                class="btn btn-puc-primary"
+                                onclick="assumirChamado()">
+
+                                <i class="bi bi-person-check me-2"></i>
+                                Assumir chamado
+
+                            </button>
+
+
+                            <button
+                                class="btn btn-success"
+                                onclick="finalizarChamado()">
+
+                                <i class="bi bi-check-circle me-2"></i>
+                                Finalizar chamado
+
+                            </button>
+
+
+                            <button
+                                class="btn btn-warning"
+                                onclick="aguardarUsuario()">
+
+                                <i class="bi bi-hourglass-split me-2"></i>
+                                Aguardar usuário
+
+                            </button>
+
+
+                            <button
+                                class="btn btn-outline-danger"
+                                onclick="cancelarChamado()">
+
+                                <i class="bi bi-x-circle me-2"></i>
+                                Cancelar chamado
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HISTÓRICO -->
+                <div class="card-custom">
+
+                    <div class="card-header-custom">
+
+                        <i class="bi bi-clock-history me-2"></i>
+                        Histórico
+
+                    </div>
+
+                    <div class="card-body-custom">
+
+                        <div class="timeline">
+
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-icon">
+                                    <i class="bi bi-plus"></i>
+                                </div>
+
+                                <div class="timeline-title">
+                                    Chamado aberto
+                                </div>
+
+                                <div class="timeline-text">
+                                    João da Silva abriu o chamado.
+                                </div>
+
+                                <div class="timeline-time">
+                                    Hoje às 09:10
+                                </div>
+
+                            </div>
+
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-icon">
+                                    <i class="bi bi-person"></i>
+                                </div>
+
+                                <div class="timeline-title">
+                                    Chamado atribuído
+                                </div>
+
+                                <div class="timeline-text">
+                                    Chamado atribuído para Samuel.
+                                </div>
+
+                                <div class="timeline-time">
+                                    Hoje às 09:12
+                                </div>
+
+                            </div>
+
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-icon">
+                                    <i class="bi bi-play"></i>
+                                </div>
+
+                                <div class="timeline-title">
+                                    Atendimento iniciado
+                                </div>
+
+                                <div class="timeline-text">
+                                    Samuel iniciou o atendimento.
+                                </div>
+
+                                <div class="timeline-time">
+                                    Hoje às 09:13
+                                </div>
+
+                            </div>
+
+
+                            <div class="timeline-item">
+
+                                <div class="timeline-icon">
+                                    <i class="bi bi-chat"></i>
+                                </div>
+
+                                <div class="timeline-title">
+                                    Mensagem adicionada
+                                </div>
+
+                                <div class="timeline-text">
+                                    Nova mensagem adicionada ao chamado.
+                                </div>
+
+                                <div class="timeline-time">
+                                    Hoje às 09:16
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DADOS DO SLA -->
+                <div class="card-custom">
+
+                    <div class="card-header-custom">
+
+                        <i class="bi bi-stopwatch me-2"></i>
+                        Informações do SLA
+
+                    </div>
+
+                    <div class="card-body-custom">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span class="text-muted small">
+                                SLA para assumir
+                            </span>
+
+                            <strong class="small">
+                                5 minutos
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress mb-3"
+                             style="height:7px;">
+
+                            <div
+                                class="progress-bar bg-success"
+                                style="width:74%;">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span class="text-muted small">
+                                SLA para finalizar
+                            </span>
+
+                            <strong class="small">
+                                10 minutos
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress mb-3"
+                             style="height:7px;">
+
+                            <div
+                                class="progress-bar bg-warning"
+                                style="width:83%;">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="alert alert-success mb-0"
+                             style="font-size:12px;">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Chamado dentro do SLA.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL FINALIZAR -->
+<div class="modal fade" id="modalFinalizar" tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Finalizar chamado
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">
+                    Solução aplicada
+                </label>
+
+                <textarea
+                    id="solucaoFinal"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Descreva o que foi feito para solucionar o chamado..."
+                ></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="btn btn-success"
+                    onclick="confirmarFinalizacao()">
+
+                    <i class="bi bi-check-circle me-1"></i>
+                    Finalizar chamado
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../assets/js/app.js"></script>
+
+
+<script>
+
+    function voltarChamados() {
+        window.location.href = "chamados.html";
+    }
+
+
+    function assumirChamado() {
+
+        if (!confirm("Deseja assumir este chamado?")) {
+            return;
+        }
+
+        alert("Chamado assumido com sucesso.");
+
+    }
+
+
+    function finalizarChamado() {
+
+        const modal = new bootstrap.Modal(
+            document.getElementById("modalFinalizar")
+        );
+
+        modal.show();
+
+    }
+
+
+    function confirmarFinalizacao() {
+
+        const solucao =
+            document.getElementById("solucaoFinal").value.trim();
+
+        if (!solucao) {
+
+            alert("Informe a solução aplicada antes de finalizar.");
+
+            return;
+        }
+
+        alert("Chamado finalizado com sucesso.");
+
+        window.location.reload();
+
+    }
+
+
+    function aguardarUsuario() {
+
+        if (!confirm(
+            "Deseja colocar este chamado como 'Aguardando usuário'?"
+        )) {
+            return;
+        }
+
+        alert("Chamado colocado como aguardando usuário.");
+
+    }
+
+
+    function cancelarChamado() {
+
+        if (!confirm(
+            "Tem certeza que deseja cancelar este chamado?"
+        )) {
+            return;
+        }
+
+        alert("Chamado cancelado.");
+
+    }
+
+
+    function enviarMensagem() {
+
+        const input =
+            document.getElementById("messageInput");
+
+        const mensagem =
+            input.value.trim();
+
+        if (!mensagem) {
+            return;
+        }
+
+        const container =
+            document.getElementById("chatMessages");
+
+        const message =
+            document.createElement("div");
+
+        message.className = "message me";
+
+        message.innerHTML = `
+
+            <div class="message-avatar">
+                SG
+            </div>
+
+            <div class="message-content">
+
+                <div class="message-name">
+                    Samuel
+                </div>
+
+                <div class="message-bubble">
+                    ${escapeHtml(mensagem)}
+                </div>
+
+                <div class="message-time">
+                    Agora
+                </div>
+
+            </div>
+
+        `;
+
+        container.appendChild(message);
+
+        input.value = "";
+
+        container.scrollTop =
+            container.scrollHeight;
+
+    }
+
+
+    function handleMessageKey(event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            enviarMensagem();
+
+        }
+
+    }
+
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+</script>
+
+</body>
+</html>

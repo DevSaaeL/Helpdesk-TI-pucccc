@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notificações | Help Desk</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+
+<div class="app-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="logo-container">
+
+                <div class="logo-icon">
+                    <i class="bi bi-headset"></i>
+                </div>
+
+                <div class="logo-text">
+                    <strong>HELP DESK</strong>
+                    <span>Service Desk</span>
+                </div>
+
+            </div>
+
+            <button
+                class="btn sidebar-close d-lg-none"
+                onclick="toggleSidebar()"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <!-- USUÁRIO -->
+        <div class="sidebar-user">
+
+            <div class="user-avatar">
+                <span>SG</span>
+            </div>
+
+            <div class="user-info">
+                <strong>Samuel Godeguez</strong>
+                <small>Usuário</small>
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+        <nav class="sidebar-nav">
+
+            <div class="nav-section">
+
+                <span class="nav-section-title">
+                    PRINCIPAL
+                </span>
+
+
+                <a href="dashboard.html" class="nav-link">
+
+                    <i class="bi bi-grid-1x2-fill"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a href="novo-chamado.html" class="nav-link">
+
+                    <i class="bi bi-plus-circle-fill"></i>
+
+                    <span>
+                        Novo Chamado
+                    </span>
+
+                </a>
+
+
+                <a href="meus-chamados.html" class="nav-link">
+
+                    <i class="bi bi-ticket-detailed-fill"></i>
+
+                    <span>
+                        Meus Chamados
+                    </span>
+
+                    <span class="nav-badge">
+                        4
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="notificacoes.html"
+                    class="nav-link active"
+                >
+
+                    <i class="bi bi-bell-fill"></i>
+
+                    <span>
+                        Notificações
+                    </span>
+
+                    <span
+                        class="nav-badge notification-badge"
+                        id="sidebarNotificationCount"
+                    >
+                        3
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-section-title">
+                    CONTA
+                </span>
+
+
+                <a href="perfil.html" class="nav-link">
+
+                    <i class="bi bi-person-fill"></i>
+
+                    <span>
+                        Meu Perfil
+                    </span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- RODAPÉ -->
+        <div class="sidebar-footer">
+
+            <a
+                href="#"
+                class="nav-link logout-link"
+                onclick="logout()"
+            >
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Sair
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- OVERLAY -->
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="toggleSidebar()"
+    ></div>
+
+
+    <!-- CONTEÚDO -->
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="btn menu-toggle d-lg-none"
+                    onclick="toggleSidebar()"
+                >
+                    <i class="bi bi-list"></i>
+                </button>
+
+
+                <div>
+
+                    <h1 class="page-title">
+                        Notificações
+                    </h1>
+
+                    <p class="page-subtitle">
+                        Acompanhe as atualizações dos seus chamados.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+
+                <!-- SINO -->
+                <button
+                    class="topbar-icon"
+                    title="Notificações"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+                    <span
+                        class="notification-dot"
+                        id="topNotificationDot"
+                    ></span>
+
+                </button>
+
+
+                <!-- USUÁRIO -->
+                <div class="dropdown">
+
+                    <button
+                        class="user-menu"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+
+                        <div class="user-avatar small">
+
+                            <span>
+                                SG
+                            </span>
+
+                        </div>
+
+
+                        <div class="user-menu-info d-none d-md-block">
+
+                            <strong>
+                                Samuel Godeguez
+                            </strong>
+
+                            <small>
+                                Usuário
+                            </small>
+
+                        </div>
+
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </button>
+
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="perfil.html"
+                            >
+
+                                <i class="bi bi-person me-2"></i>
+
+                                Meu Perfil
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+
+                        <li>
+
+                            <a
+                                class="dropdown-item text-danger"
+                                href="#"
+                                onclick="logout()"
+                            >
+
+                                <i class="bi bi-box-arrow-right me-2"></i>
+
+                                Sair
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ÁREA DE CONTEÚDO -->
+        <div class="content-area">
+
+
+            <!-- CABEÇALHO -->
+            <div class="content-header">
+
+                <div>
+
+                    <h2 class="content-title">
+                        Central de notificações
+                    </h2>
+
+                    <p class="content-description">
+                        Aqui você encontrará atualizações importantes sobre seus chamados.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="btn btn-outline-primary"
+                    onclick="marcarTodasComoLidas()"
+                >
+
+                    <i class="bi bi-check2-all me-2"></i>
+
+                    Marcar todas como lidas
+
+                </button>
+
+            </div>
+
+
+            <!-- RESUMO -->
+            <div class="row g-3 mb-4">
+
+
+                <div class="col-12 col-sm-6 col-xl-4">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon warning">
+
+                            <i class="bi bi-bell-fill"></i>
+
+                        </div>
+
+
+                        <div class="stat-content">
+
+                            <span>
+                                Não lidas
+                            </span>
+
+                            <strong id="unreadCount">
+                                3
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-sm-6 col-xl-4">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon primary">
+
+                            <i class="bi bi-ticket-detailed"></i>
+
+                        </div>
+
+
+                        <div class="stat-content">
+
+                            <span>
+                                Atualizações
+                            </span>
+
+                            <strong>
+                                5
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-sm-6 col-xl-4">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon success">
+
+                            <i class="bi bi-check-circle"></i>
+
+                        </div>
+
+
+                        <div class="stat-content">
+
+                            <span>
+                                Resolvidos
+                            </span>
+
+                            <strong>
+                                2
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILTROS -->
+            <div class="card custom-card mb-4">
+
+                <div class="card-body">
+
+                    <div class="row g-3 align-items-end">
+
+
+                        <div class="col-12 col-md-5">
+
+                            <label class="form-label">
+                                Pesquisar
+                            </label>
+
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-search"></i>
+
+                                </span>
+
+
+                                <input
+                                    type="text"
+                                    id="searchInput"
+                                    class="form-control"
+                                    placeholder="Pesquisar notificação..."
+                                    oninput="filtrarNotificacoes()"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-3">
+
+                            <label class="form-label">
+                                Tipo
+                            </label>
+
+
+                            <select
+                                id="typeFilter"
+                                class="form-select"
+                                onchange="filtrarNotificacoes()"
+                            >
+
+                                <option value="">
+                                    Todos
+                                </option>
+
+                                <option value="chamado">
+                                    Chamado
+                                </option>
+
+                                <option value="sla">
+                                    SLA
+                                </option>
+
+                                <option value="mensagem">
+                                    Mensagem
+                                </option>
+
+                                <option value="sistema">
+                                    Sistema
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-2">
+
+                            <label class="form-label">
+                                Status
+                            </label>
+
+
+                            <select
+                                id="readFilter"
+                                class="form-select"
+                                onchange="filtrarNotificacoes()"
+                            >
+
+                                <option value="">
+                                    Todas
+                                </option>
+
+                                <option value="unread">
+                                    Não lidas
+                                </option>
+
+                                <option value="read">
+                                    Lidas
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-2">
+
+                            <button
+                                class="btn btn-outline-secondary w-100"
+                                onclick="limparFiltros()"
+                            >
+
+                                <i class="bi bi-x-circle me-2"></i>
+
+                                Limpar
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTIFICAÇÕES -->
+            <div class="card custom-card">
+
+
+                <div class="card-header custom-card-header">
+
+                    <div>
+
+                        <h5 class="mb-1">
+                            Suas notificações
+                        </h5>
+
+                        <span class="text-muted small">
+
+                            <span id="notificationResultCount">
+                                6
+                            </span>
+
+                            notificações
+
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-sm btn-outline-danger"
+                        onclick="limparNotificacoes()"
+                    >
+
+                        <i class="bi bi-trash3 me-2"></i>
+
+                        Limpar todas
+
+                    </button>
+
+                </div>
+
+
+                <div class="card-body p-0">
+
+
+                    <div
+                        class="notification-list"
+                        id="notificationList"
+                    >
+
+
+                        <!-- NOTIFICAÇÃO 1 -->
+                        <div
+                            class="notification-item unread"
+                            data-type="chamado"
+                            data-read="unread"
+                            onclick="abrirNotificacao(this, '128')"
+                        >
+
+                            <div class="notification-icon primary">
+
+                                <i class="bi bi-ticket-detailed"></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-top">
+
+                                    <strong>
+                                        Chamado atualizado
+                                    </strong>
+
+                                    <span class="notification-time">
+                                        Há 15 minutos
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    O chamado
+                                    <strong>#000128</strong>
+                                    foi assumido por um técnico.
+                                </p>
+
+
+                                <div class="notification-meta">
+
+                                    <span>
+                                        <i class="bi bi-ticket me-1"></i>
+                                        #000128
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-person me-1"></i>
+                                        Suporte TI
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="notification-status">
+                                <span class="unread-dot"></span>
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTIFICAÇÃO 2 -->
+                        <div
+                            class="notification-item unread"
+                            data-type="mensagem"
+                            data-read="unread"
+                            onclick="abrirNotificacao(this, '128')"
+                        >
+
+                            <div class="notification-icon info">
+
+                                <i class="bi bi-chat-left-text"></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-top">
+
+                                    <strong>
+                                        Nova mensagem no chamado
+                                    </strong>
+
+                                    <span class="notification-time">
+                                        Há 32 minutos
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    O técnico enviou uma nova mensagem no chamado
+                                    <strong>#000128</strong>.
+                                </p>
+
+
+                                <div class="notification-meta">
+
+                                    <span>
+                                        <i class="bi bi-ticket me-1"></i>
+                                        #000128
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-chat me-1"></i>
+                                        Nova mensagem
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="notification-status">
+                                <span class="unread-dot"></span>
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTIFICAÇÃO 3 -->
+                        <div
+                            class="notification-item unread"
+                            data-type="sla"
+                            data-read="unread"
+                            onclick="abrirNotificacao(this, '127')"
+                        >
+
+                            <div class="notification-icon warning">
+
+                                <i class="bi bi-clock-history"></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-top">
+
+                                    <strong>
+                                        Chamado aguardando atendimento
+                                    </strong>
+
+                                    <span class="notification-time">
+                                        Há 1 hora
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    O chamado
+                                    <strong>#000127</strong>
+                                    ainda está aguardando atendimento.
+                                </p>
+
+
+                                <div class="notification-meta">
+
+                                    <span>
+                                        <i class="bi bi-ticket me-1"></i>
+                                        #000127
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-exclamation-circle me-1"></i>
+                                        SLA
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="notification-status">
+                                <span class="unread-dot"></span>
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTIFICAÇÃO 4 -->
+                        <div
+                            class="notification-item"
+                            data-type="chamado"
+                            data-read="read"
+                            onclick="abrirNotificacao(this, '126')"
+                        >
+
+                            <div class="notification-icon success">
+
+                                <i class="bi bi-check-circle"></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-top">
+
+                                    <strong>
+                                        Chamado atualizado
+                                    </strong>
+
+                                    <span class="notification-time">
+                                        Ontem
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    O chamado
+                                    <strong>#000126</strong>
+                                    está aguardando uma resposta sua.
+                                </p>
+
+
+                                <div class="notification-meta">
+
+                                    <span>
+                                        <i class="bi bi-ticket me-1"></i>
+                                        #000126
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-person-check me-1"></i>
+                                        Aguardando usuário
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTIFICAÇÃO 5 -->
+                        <div
+                            class="notification-item"
+                            data-type="chamado"
+                            data-read="read"
+                            onclick="abrirNotificacao(this, '125')"
+                        >
+
+                            <div class="notification-icon success">
+
+                                <i class="bi bi-check-lg"></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-top">
+
+                                    <strong>
+                                        Chamado finalizado
+                                    </strong>
+
+                                    <span class="notification-time">
+                                        16/09/2026
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    O chamado
+                                    <strong>#000125</strong>
+                                    foi finalizado pelo suporte.
+                                </p>
+
+
+                                <div class="notification-meta">
+
+                                    <span>
+                                        <i class="bi bi-ticket me-1"></i>
+                                        #000125
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Finalizado
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTIFICAÇÃO 6 -->
+                        <div
+                            class="notification-item"
+                            data-type="sistema"
+                            data-read="read"
+                            onclick="abrirNotificacao(this)"
+                        >
+
+                            <div class="notification-icon secondary">
+
+                                <i class="bi bi-info-circle"></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-top">
+
+                                    <strong>
+                                        Sistema atualizado
+                                    </strong>
+
+                                    <span class="notification-time">
+                                        15/09/2026
+                                    </span>
+
+                                </div>
+
+
+                                <p>
+                                    O sistema de Help Desk recebeu uma nova atualização.
+                                </p>
+
+
+                                <div class="notification-meta">
+
+                                    <span>
+                                        <i class="bi bi-gear me-1"></i>
+                                        Sistema
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- EMPTY STATE -->
+                    <div
+                        id="emptyState"
+                        class="empty-state d-none"
+                    >
+
+                        <div class="empty-state-icon">
+
+                            <i class="bi bi-bell-slash"></i>
+
+                        </div>
+
+
+                        <h5>
+                            Nenhuma notificação encontrada
+                        </h5>
+
+
+                        <p>
+                            Não existem notificações para os filtros selecionados.
+                        </p>
+
+
+                        <button
+                            class="btn btn-outline-primary"
+                            onclick="limparFiltros()"
+                        >
+
+                            Limpar filtros
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RODAPÉ -->
+                <div class="card-footer custom-card-footer">
+
+                    <div class="pagination-info">
+
+                        Mostrando
+
+                        <strong>
+                            <span id="showingCount">
+                                6
+                            </span>
+                        </strong>
+
+                        notificações
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-sm btn-outline-secondary"
+                        onclick="carregarMais()"
+                    >
+
+                        Carregar mais
+
+                        <i class="bi bi-arrow-down ms-2"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- BOOTSTRAP -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- APP -->
+<script src="../assets/js/app.js"></script>
+
+
+<script>
+
+
+/* ================================
+   SIDEBAR
+================================ */
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+    sidebar.classList.toggle("show");
+
+    overlay.classList.toggle("show");
+
+}
+
+
+/* ================================
+   FILTRAR NOTIFICAÇÕES
+================================ */
+
+function filtrarNotificacoes() {
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const type =
+        document
+            .getElementById("typeFilter")
+            .value;
+
+
+    const read =
+        document
+            .getElementById("readFilter")
+            .value;
+
+
+    const notifications =
+        document.querySelectorAll(
+            "#notificationList .notification-item"
+        );
+
+
+    let visibleCount = 0;
+
+
+    notifications.forEach(notification => {
+
+        const text =
+            notification.innerText
+                .toLowerCase();
+
+
+        const notificationType =
+            notification.dataset.type;
+
+
+        const notificationRead =
+            notification.dataset.read;
+
+
+        let visible = true;
+
+
+        /* PESQUISA */
+
+        if (
+            search &&
+            !text.includes(search)
+        ) {
+
+            visible = false;
+
+        }
+
+
+        /* TIPO */
+
+        if (
+            type &&
+            notificationType !== type
+        ) {
+
+            visible = false;
+
+        }
+
+
+        /* STATUS */
+
+        if (
+            read &&
+            notificationRead !== read
+        ) {
+
+            visible = false;
+
+        }
+
+
+        notification.style.display =
+            visible ? "" : "none";
+
+
+        if (visible) {
+
+            visibleCount++;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "notificationResultCount"
+    ).textContent = visibleCount;
+
+
+    document.getElementById(
+        "showingCount"
+    ).textContent = visibleCount;
+
+
+    const emptyState =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    if (visibleCount === 0) {
+
+        emptyState.classList.remove(
+            "d-none"
+        );
+
+    } else {
+
+        emptyState.classList.add(
+            "d-none"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   LIMPAR FILTROS
+================================ */
+
+function limparFiltros() {
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "typeFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "readFilter"
+    ).value = "";
+
+
+    filtrarNotificacoes();
+
+}
+
+
+/* ================================
+   ABRIR NOTIFICAÇÃO
+================================ */
+
+function abrirNotificacao(
+    elemento,
+    chamadoId = null
+) {
+
+    if (
+        elemento.dataset.read === "unread"
+    ) {
+
+        elemento.dataset.read = "read";
+
+        elemento.classList.remove(
+            "unread"
+        );
+
+
+        const dot =
+            elemento.querySelector(
+                ".unread-dot"
+            );
+
+
+        if (dot) {
+
+            dot.remove();
+
+        }
+
+    }
+
+
+    atualizarContador();
+
+
+    if (chamadoId) {
+
+        window.location.href =
+            "chamado-detalhes.html?id=" +
+            chamadoId;
+
+    }
+
+}
+
+
+/* ================================
+   MARCAR TODAS COMO LIDAS
+================================ */
+
+function marcarTodasComoLidas() {
+
+    const notifications =
+        document.querySelectorAll(
+            "#notificationList .notification-item"
+        );
+
+
+    notifications.forEach(notification => {
+
+        notification.dataset.read =
+            "read";
+
+
+        notification.classList.remove(
+            "unread"
+        );
+
+
+        const dot =
+            notification.querySelector(
+                ".unread-dot"
+            );
+
+
+        if (dot) {
+
+            dot.remove();
+
+        }
+
+    });
+
+
+    atualizarContador();
+
+
+    alert(
+        "Todas as notificações foram marcadas como lidas."
+    );
+
+}
+
+
+/* ================================
+   CONTADOR
+================================ */
+
+function atualizarContador() {
+
+    const unread =
+        document.querySelectorAll(
+            "#notificationList .notification-item.unread"
+        );
+
+
+    const count =
+        unread.length;
+
+
+    document.getElementById(
+        "unreadCount"
+    ).textContent = count;
+
+
+    document.getElementById(
+        "sidebarNotificationCount"
+    ).textContent = count;
+
+
+    const dot =
+        document.getElementById(
+            "topNotificationDot"
+        );
+
+
+    if (count === 0) {
+
+        dot.style.display = "none";
+
+    } else {
+
+        dot.style.display = "block";
+
+    }
+
+}
+
+
+/* ================================
+   LIMPAR NOTIFICAÇÕES
+================================ */
+
+function limparNotificacoes() {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente limpar todas as notificações?"
+        );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    const list =
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    document.getElementById(
+        "notificationResultCount"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "showingCount"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "unreadCount"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "sidebarNotificationCount"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "topNotificationDot"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "emptyState"
+    ).classList.remove(
+        "d-none"
+    );
+
+}
+
+
+/* ================================
+   CARREGAR MAIS
+================================ */
+
+function carregarMais() {
+
+    alert(
+        "A paginação será conectada ao backend posteriormente."
+    );
+
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+function logout() {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente sair do sistema?"
+        );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* ================================
+   INICIALIZAÇÃO
+================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        atualizarContador();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

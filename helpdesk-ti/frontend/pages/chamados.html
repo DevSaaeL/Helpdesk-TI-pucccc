@@ -1,0 +1,3497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chamados | HelpDesk TI</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
+<style id="helpdesk-layout-fix">
+/* =========================================================
+   HELP DESK TI — LAYOUT PRINCIPAL / TEMA PUC-PR
+   Correção do menu lateral e cabeçalho
+========================================================= */
+
+:root {
+    --puc-red: #a6192e;
+    --puc-red-dark: #8b1426;
+    --sidebar-bg: #111827;
+    --sidebar-text: #cbd5e1;
+    --sidebar-muted: #94a3b8;
+    --page-bg: #f8fafc;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    background: var(--page-bg);
+    color: #1e293b;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 250px !important;
+    height: 100vh !important;
+    z-index: 1040 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: var(--sidebar-bg) !important;
+    color: var(--sidebar-text) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-shadow: 2px 0 12px rgba(15, 23, 42, .08);
+}
+
+.sidebar-brand {
+    min-height: 72px;
+    padding: 18px 20px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px;
+    color: #fff !important;
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.sidebar-brand-icon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 9px;
+    background: var(--puc-red) !important;
+    color: #fff !important;
+    font-size: 18px;
+}
+
+.sidebar-menu {
+    padding: 16px 12px 24px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px;
+}
+
+.menu-title {
+    margin: 16px 8px 7px;
+    color: var(--sidebar-muted) !important;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.menu-title:first-child {
+    margin-top: 2px;
+}
+
+.sidebar-menu .menu-item {
+    min-height: 42px;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    padding: 10px 12px !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    color: var(--sidebar-text) !important;
+    background: transparent !important;
+    text-decoration: none !important;
+    font-size: 14px;
+    line-height: 1.2;
+    transition: .15s ease;
+}
+
+.sidebar-menu .menu-item i {
+    width: 20px;
+    flex: 0 0 20px;
+    text-align: center;
+    color: #94a3b8 !important;
+    font-size: 16px;
+}
+
+.sidebar-menu .menu-item span:not(.menu-badge) {
+    display: inline-block;
+    color: inherit !important;
+}
+
+.sidebar-menu .menu-item:hover {
+    color: #fff !important;
+    background: rgba(255,255,255,.07) !important;
+}
+
+.sidebar-menu .menu-item:hover i {
+    color: #fff !important;
+}
+
+.sidebar-menu .menu-item.active {
+    color: #fff !important;
+    background: var(--puc-red) !important;
+}
+
+.sidebar-menu .menu-item.active i {
+    color: #fff !important;
+}
+
+.menu-badge {
+    margin-left: auto;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 6px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12) !important;
+    color: #fff !important;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.sidebar-menu .menu-item.active .menu-badge {
+    background: rgba(255,255,255,.18) !important;
+}
+
+/* MAIN */
+.main-content {
+    min-height: 100vh;
+    margin-left: 250px !important;
+    width: calc(100% - 250px) !important;
+    background: var(--page-bg);
+}
+
+/* TOPBAR */
+.topbar {
+    min-height: 82px;
+    padding: 14px 28px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 20px;
+    background: #fff !important;
+    border-bottom: 1px solid var(--border);
+}
+
+.topbar-left,
+.topbar-right {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.topbar-left {
+    gap: 14px;
+}
+
+.topbar-right {
+    gap: 18px;
+}
+
+.mobile-menu-button {
+    display: none;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #fff;
+    color: #334155;
+}
+
+.page-title {
+    margin: 0 !important;
+    color: #1e293b !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+}
+
+.page-subtitle {
+    margin-top: 3px;
+    color: #94a3b8 !important;
+    font-size: 13px;
+}
+
+.notification-button {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    color: #475569;
+}
+
+.notification-button:hover {
+    color: var(--puc-red);
+    border-color: #cbd5e1;
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px;
+    background: var(--puc-red) !important;
+    color: #fff !important;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.user-profile {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 46px !important;
+    height: 46px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: var(--puc-red) !important;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.user-info {
+    display: flex !important;
+    flex-direction: column !important;
+    line-height: 1.2;
+}
+
+.user-name {
+    color: #334155 !important;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-role {
+    margin-top: 3px;
+    color: #64748b !important;
+    font-size: 12px;
+}
+
+.user-profile > .bi-chevron-down {
+    color: #64748b !important;
+    font-size: 13px;
+}
+
+/* PAGE */
+.page-content {
+    padding: 28px !important;
+}
+
+.page-content h2,
+.page-content h5 {
+    color: #1e293b;
+}
+
+.dashboard-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15,23,42,.04);
+}
+
+.stat-icon {
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 14px !important;
+}
+
+.stat-icon.blue {
+    background: #fdf0f2 !important;
+    color: var(--puc-red) !important;
+}
+
+.stat-icon.orange {
+    background: #fff7ed !important;
+    color: #ea580c !important;
+}
+
+.stat-icon.green {
+    background: #ecfdf5 !important;
+    color: #16a34a !important;
+}
+
+.stat-icon.red {
+    background: #fef2f2 !important;
+    color: #dc2626 !important;
+}
+
+.text-primary {
+    color: var(--puc-red) !important;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--puc-red);
+    --bs-btn-border-color: var(--puc-red);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--puc-red-dark);
+    --bs-btn-hover-border-color: var(--puc-red-dark);
+    --bs-btn-active-bg: var(--puc-red-dark);
+    --bs-btn-active-border-color: var(--puc-red-dark);
+}
+
+.btn-primary {
+    background-color: var(--puc-red) !important;
+    border-color: var(--puc-red) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: var(--puc-red-dark) !important;
+    border-color: var(--puc-red-dark) !important;
+}
+
+.btn-outline-primary {
+    color: var(--puc-red) !important;
+    border-color: var(--puc-red) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    color: #fff !important;
+    background-color: var(--puc-red) !important;
+    border-color: var(--puc-red) !important;
+}
+
+/* FORMULÁRIOS */
+.form-label {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    min-height: 48px;
+    border-color: #dbe3ec;
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--puc-red);
+    box-shadow: 0 0 0 .2rem rgba(166,25,46,.12);
+}
+
+.input-group .form-control {
+    min-height: 48px;
+}
+
+/* PAGINAÇÃO */
+.pagination .page-link {
+    color: var(--puc-red) !important;
+}
+
+.pagination .active .page-link {
+    background-color: var(--puc-red) !important;
+    border-color: var(--puc-red) !important;
+    color: #fff !important;
+}
+
+/* RESPONSIVO */
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%) !important;
+        transition: transform .2s ease;
+    }
+
+    .sidebar.show {
+        transform: translateX(0) !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .mobile-menu-button {
+        display: inline-flex !important;
+    }
+
+    .page-content {
+        padding: 20px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .topbar {
+        padding: 12px 16px;
+    }
+
+    .topbar .page-title {
+        font-size: 20px !important;
+    }
+
+    .page-subtitle {
+        display: none;
+    }
+
+    .user-info,
+    .user-profile > .bi-chevron-down {
+        display: none !important;
+    }
+
+    .page-content {
+        padding: 16px !important;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="sidebar-brand-icon">
+            <i class="bi bi-headset"></i>
+        </div>
+
+        <span>
+            HelpDesk TI
+        </span>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <div class="menu-title">
+            Principal
+        </div>
+
+
+        <a href="dashboard.html" class="menu-item">
+
+            <i class="bi bi-grid-1x2-fill"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="chamados.html" class="menu-item active">
+
+            <i class="bi bi-ticket-perforated"></i>
+
+            <span>
+                Chamados
+            </span>
+
+            <span
+                class="menu-badge"
+                id="sidebarTicketCount"
+            >
+                8
+            </span>
+
+        </a>
+
+
+        <a href="novo-chamado.html" class="menu-item">
+
+            <i class="bi bi-plus-circle"></i>
+
+            <span>
+                Novo chamado
+            </span>
+
+        </a>
+
+
+        <a href="meus-chamados.html" class="menu-item">
+
+            <i class="bi bi-person-lines-fill"></i>
+
+            <span>
+                Meus chamados
+            </span>
+
+        </a>
+
+
+        <div class="menu-title">
+            Atendimento
+        </div>
+
+
+        <a href="notificacoes.html" class="menu-item">
+
+            <i class="bi bi-bell"></i>
+
+            <span>
+                Notificações
+            </span>
+
+            <span class="menu-badge">
+                3
+            </span>
+
+        </a>
+
+
+        <div class="menu-title">
+            Administração
+        </div>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-people"></i>
+
+            <span>
+                Usuários
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-building"></i>
+
+            <span>
+                Filiais
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-geo-alt"></i>
+
+            <span>
+                Cidades
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-diagram-3"></i>
+
+            <span>
+                Setores
+            </span>
+
+        </a>
+
+
+        <div class="menu-title">
+            Gestão
+        </div>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-bar-chart"></i>
+
+            <span>
+                Relatórios
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-clock-history"></i>
+
+            <span>
+                Auditoria
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <i class="bi bi-gear"></i>
+
+            <span>
+                Configurações
+            </span>
+
+        </a>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main-content">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <button
+                class="mobile-menu-button"
+                type="button"
+            >
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+
+            <div>
+
+                <h1 class="page-title">
+                    Chamados
+                </h1>
+
+                <div class="page-subtitle">
+                    Gerenciamento e acompanhamento dos chamados
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="topbar-right">
+
+
+            <button
+                class="notification-button"
+                title="Notificações"
+            >
+
+                <i class="bi bi-bell"></i>
+
+                <span class="notification-count">
+                    3
+                </span>
+
+            </button>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    SG
+                </div>
+
+
+                <div class="user-info">
+
+                    <span class="user-name">
+                        Samuel
+                    </span>
+
+                    <span class="user-role">
+                        Administrador
+                    </span>
+
+                </div>
+
+
+                <i class="bi bi-chevron-down"></i>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         PAGE CONTENT
+    ====================================================== -->
+
+    <div class="page-content">
+
+
+        <!-- CABEÇALHO -->
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+            <div>
+
+                <h2 class="fw-bold mb-1">
+                    Todos os chamados
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Visualize, filtre e acompanhe os chamados de TI.
+                </p>
+
+            </div>
+
+
+            <a
+                href="novo-chamado.html"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-plus-lg me-1"></i>
+
+                Novo chamado
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             INDICADORES
+        ================================================== -->
+
+        <div class="row g-3 mb-4">
+
+
+            <div class="col-6 col-xl-3">
+
+                <div class="dashboard-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon blue">
+
+                            <i class="bi bi-ticket-perforated"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div
+                                class="stat-value"
+                                id="totalTickets"
+                            >
+                                24
+                            </div>
+
+                            <div class="stat-label">
+                                Total
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-xl-3">
+
+                <div class="dashboard-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon orange">
+
+                            <i class="bi bi-hourglass-split"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div
+                                class="stat-value"
+                                id="openTickets"
+                            >
+                                8
+                            </div>
+
+                            <div class="stat-label">
+                                Abertos
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-xl-3">
+
+                <div class="dashboard-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon green">
+
+                            <i class="bi bi-check-circle"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div
+                                class="stat-value"
+                                id="finishedTickets"
+                            >
+                                11
+                            </div>
+
+                            <div class="stat-label">
+                                Finalizados
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-xl-3">
+
+                <div class="dashboard-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon red">
+
+                            <i class="bi bi-exclamation-triangle"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div
+                                class="stat-value"
+                                id="lateTickets"
+                            >
+                                5
+                            </div>
+
+                            <div class="stat-label">
+                                Fora do SLA
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTROS
+        ================================================== -->
+
+        <div class="dashboard-card mb-4">
+
+
+            <div class="d-flex align-items-center justify-content-between mb-3">
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+
+                        <i class="bi bi-funnel me-2 text-primary"></i>
+
+                        Filtros
+
+                    </h5>
+
+                    <small class="text-muted">
+                        Refine a lista de chamados
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    id="clearFilters"
+                >
+
+                    <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                    Limpar filtros
+
+                </button>
+
+            </div>
+
+
+            <div class="row g-3">
+
+
+                <!-- BUSCA -->
+
+                <div class="col-12 col-lg-4">
+
+                    <label class="form-label">
+                        Buscar chamado
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text bg-white">
+
+                            <i class="bi bi-search"></i>
+
+                        </span>
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            class="form-control"
+                            placeholder="Número, título, usuário ou sala..."
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="col-6 col-lg-2">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select
+                        id="statusFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="aberto">
+                            Aberto
+                        </option>
+
+                        <option value="atendimento">
+                            Em atendimento
+                        </option>
+
+                        <option value="aguardando">
+                            Aguardando usuário
+                        </option>
+
+                        <option value="finalizado">
+                            Finalizado
+                        </option>
+
+                        <option value="cancelado">
+                            Cancelado
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- PRIORIDADE -->
+
+                <div class="col-6 col-lg-2">
+
+                    <label class="form-label">
+                        Prioridade
+                    </label>
+
+                    <select
+                        id="priorityFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todas
+                        </option>
+
+                        <option value="baixa">
+                            Baixa
+                        </option>
+
+                        <option value="media">
+                            Média
+                        </option>
+
+                        <option value="alta">
+                            Alta
+                        </option>
+
+                        <option value="critica">
+                            Crítica
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- CATEGORIA -->
+
+                <div class="col-6 col-lg-2">
+
+                    <label class="form-label">
+                        Categoria
+                    </label>
+
+                    <select
+                        id="categoryFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todas
+                        </option>
+
+                        <option value="computador">
+                            Computador
+                        </option>
+
+                        <option value="notebook">
+                            Notebook
+                        </option>
+
+                        <option value="internet">
+                            Internet
+                        </option>
+
+                        <option value="wifi">
+                            Wi-Fi
+                        </option>
+
+                        <option value="sistema">
+                            Sistema
+                        </option>
+
+                        <option value="impressora">
+                            Impressora
+                        </option>
+
+                        <option value="rede">
+                            Rede
+                        </option>
+
+                        <option value="email">
+                            E-mail
+                        </option>
+
+                        <option value="hardware">
+                            Hardware
+                        </option>
+
+                        <option value="software">
+                            Software
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- SLA -->
+
+                <div class="col-6 col-lg-2">
+
+                    <label class="form-label">
+                        SLA
+                    </label>
+
+                    <select
+                        id="slaFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="normal">
+                            Dentro do SLA
+                        </option>
+
+                        <option value="atrasado">
+                            Fora do SLA
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row g-3 mt-1">
+
+
+                <!-- CIDADE -->
+
+                <div class="col-6 col-lg-3">
+
+                    <label class="form-label">
+                        Cidade
+                    </label>
+
+                    <select
+                        id="cityFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todas
+                        </option>
+
+                        <option value="londrina">
+                            Londrina
+                        </option>
+
+                        <option value="cambe">
+                            Cambé
+                        </option>
+
+                        <option value="maringa">
+                            Maringá
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- FILIAL -->
+
+                <div class="col-6 col-lg-3">
+
+                    <label class="form-label">
+                        Filial
+                    </label>
+
+                    <select
+                        id="branchFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todas
+                        </option>
+
+                        <option value="matriz">
+                            Matriz Londrina
+                        </option>
+
+                        <option value="centro">
+                            Unidade Centro
+                        </option>
+
+                        <option value="cambe">
+                            Unidade Cambé
+                        </option>
+
+                        <option value="maringa">
+                            Unidade Maringá
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- TÉCNICO -->
+
+                <div class="col-6 col-lg-3">
+
+                    <label class="form-label">
+                        Técnico
+                    </label>
+
+                    <select
+                        id="technicianFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="samuel">
+                            Samuel
+                        </option>
+
+                        <option value="joao">
+                            João Silva
+                        </option>
+
+                        <option value="carlos">
+                            Carlos Souza
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DATA -->
+
+                <div class="col-6 col-lg-3">
+
+                    <label class="form-label">
+                        Período
+                    </label>
+
+                    <select
+                        id="dateFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Qualquer período
+                        </option>
+
+                        <option value="hoje">
+                            Hoje
+                        </option>
+
+                        <option value="7dias">
+                            Últimos 7 dias
+                        </option>
+
+                        <option value="30dias">
+                            Últimos 30 dias
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TABELA
+        ================================================== -->
+
+        <div class="dashboard-card p-0">
+
+
+            <!-- CABEÇALHO DA TABELA -->
+
+            <div class="p-4 border-bottom">
+
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+
+                    <div>
+
+                        <h5 class="fw-bold mb-1">
+                            Lista de chamados
+                        </h5>
+
+                        <small class="text-muted">
+
+                            Exibindo
+                            <strong id="visibleCount">
+                                8
+                            </strong>
+                            chamados
+
+                        </small>
+
+                    </div>
+
+
+                    <div class="d-flex gap-2">
+
+
+                        <button
+                            class="btn btn-sm btn-outline-secondary"
+                            title="Atualizar"
+                            id="refreshButton"
+                        >
+
+                            <i class="bi bi-arrow-clockwise"></i>
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-sm btn-outline-secondary"
+                            title="Exportar"
+                            id="exportButton"
+                        >
+
+                            <i class="bi bi-download me-1"></i>
+
+                            Exportar
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TABELA -->
+
+            <div class="table-responsive">
+
+                <table
+                    class="table table-hover align-middle mb-0"
+                    id="ticketsTable"
+                >
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Chamado
+                            </th>
+
+                            <th>
+                                Solicitação
+                            </th>
+
+                            <th>
+                                Solicitante
+                            </th>
+
+                            <th>
+                                Local
+                            </th>
+
+                            <th>
+                                Categoria
+                            </th>
+
+                            <th>
+                                Prioridade
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                SLA
+                            </th>
+
+                            <th class="text-end">
+                                Ações
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="ticketsBody">
+
+
+                        <!-- =================================================
+                             CHAMADO 000124
+                        ================================================== -->
+
+                        <tr
+                            data-status="atendimento"
+                            data-priority="alta"
+                            data-category="computador"
+                            data-sla="normal"
+                            data-city="londrina"
+                            data-branch="matriz"
+                            data-technician="samuel"
+                            data-date="hoje"
+                            data-search="000124 computador não liga joão pereira financeiro sala 04 londrina matriz"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000124
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Hoje, 10:32
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Computador não liga
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Equipamento não apresenta sinais
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    João Pereira
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    Financeiro
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 04
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Computador
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-high">
+                                    Alta
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-progress">
+                                    Em atendimento
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-ok">
+
+                                    <i class="bi bi-clock"></i>
+
+                                    03:12
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                        title="Ações"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-chat-dots me-2"></i>
+
+                                                Abrir atendimento
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+
+                                        <li>
+
+                                            <button
+                                                class="dropdown-item text-danger"
+                                                type="button"
+                                                onclick="cancelTicket('#000124')"
+                                            >
+
+                                                <i class="bi bi-x-circle me-2"></i>
+
+                                                Cancelar
+
+                                            </button>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000123
+                        ================================================== -->
+
+                        <tr
+                            data-status="aberto"
+                            data-priority="media"
+                            data-category="impressora"
+                            data-sla="normal"
+                            data-city="londrina"
+                            data-branch="centro"
+                            data-technician=""
+                            data-date="hoje"
+                            data-search="000123 impressora não imprime maria fernandes rh sala 02 londrina centro"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000123
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Hoje, 10:15
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Impressora não imprime
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Documento fica na fila
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Maria Fernandes
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    RH
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 02
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Impressora
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-medium">
+                                    Média
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-open">
+                                    Aberto
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-ok">
+
+                                    <i class="bi bi-clock"></i>
+
+                                    01:45
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <button
+                                                class="dropdown-item"
+                                                type="button"
+                                                onclick="assumeTicket('#000123')"
+                                            >
+
+                                                <i class="bi bi-person-check me-2"></i>
+
+                                                Assumir chamado
+
+                                            </button>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000122
+                        ================================================== -->
+
+                        <tr
+                            data-status="atendimento"
+                            data-priority="critica"
+                            data-category="internet"
+                            data-sla="atrasado"
+                            data-city="cambe"
+                            data-branch="cambe"
+                            data-technician="joao"
+                            data-date="hoje"
+                            data-search="000122 internet sem conexão carlos oliveira comercial sala 07 cambé unidade cambé"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000122
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Hoje, 09:48
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Internet sem conexão
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Setor inteiro sem internet
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Carlos Oliveira
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    Comercial
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 07
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Internet
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-critical">
+                                    Crítica
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-progress">
+                                    Em atendimento
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-late">
+
+                                    <i class="bi bi-exclamation-triangle"></i>
+
+                                    08:32
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-chat-dots me-2"></i>
+
+                                                Atendimento
+
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000121
+                        ================================================== -->
+
+                        <tr
+                            data-status="finalizado"
+                            data-priority="baixa"
+                            data-category="sistema"
+                            data-sla="normal"
+                            data-city="londrina"
+                            data-branch="matriz"
+                            data-technician="samuel"
+                            data-date="hoje"
+                            data-search="000121 problema sistema sistema financeiro ana costa administrativo sala 03 londrina matriz"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000121
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Hoje, 08:55
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Problema no sistema
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sistema apresenta erro
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Ana Costa
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    Administrativo
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 03
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Sistema
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-low">
+                                    Baixa
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-finished">
+                                    Finalizado
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-finished">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    06:21
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <button
+                                                class="dropdown-item"
+                                                type="button"
+                                                onclick="reopenTicket('#000121')"
+                                            >
+
+                                                <i class="bi bi-arrow-counterclockwise me-2"></i>
+
+                                                Reabrir
+
+                                            </button>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000120
+                        ================================================== -->
+
+                        <tr
+                            data-status="aguardando"
+                            data-priority="alta"
+                            data-category="notebook"
+                            data-sla="normal"
+                            data-city="maringa"
+                            data-branch="maringa"
+                            data-technician="carlos"
+                            data-date="7dias"
+                            data-search="000120 notebook travando pedro santos diretoria sala 01 maringá unidade maringá"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000120
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Ontem, 16:40
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Notebook travando
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Equipamento apresenta lentidão
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Pedro Santos
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    Diretoria
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 01
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Notebook
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-high">
+                                    Alta
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-waiting">
+                                    Aguardando usuário
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-ok">
+
+                                    <i class="bi bi-clock"></i>
+
+                                    04:08
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-chat-dots me-2"></i>
+
+                                                Enviar mensagem
+
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000119
+                        ================================================== -->
+
+                        <tr
+                            data-status="aberto"
+                            data-priority="media"
+                            data-category="wifi"
+                            data-sla="normal"
+                            data-city="londrina"
+                            data-branch="centro"
+                            data-technician=""
+                            data-date="7dias"
+                            data-search="000119 wi-fi não funciona juliana rocha recepção sala 05 londrina centro"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000119
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Ontem, 15:12
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Wi-Fi não funciona
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sem conexão na recepção
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Juliana Rocha
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    Recepção
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 05
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Wi-Fi
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-medium">
+                                    Média
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-open">
+                                    Aberto
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-ok">
+
+                                    <i class="bi bi-clock"></i>
+
+                                    02:19
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <button
+                                                class="dropdown-item"
+                                                type="button"
+                                                onclick="assumeTicket('#000119')"
+                                            >
+
+                                                <i class="bi bi-person-check me-2"></i>
+
+                                                Assumir chamado
+
+                                            </button>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000118
+                        ================================================== -->
+
+                        <tr
+                            data-status="finalizado"
+                            data-priority="alta"
+                            data-category="rede"
+                            data-sla="normal"
+                            data-city="cambe"
+                            data-branch="cambe"
+                            data-technician="joao"
+                            data-date="7dias"
+                            data-search="000118 problema rede lucas martins operacional sala 08 cambé unidade cambé"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000118
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    Ontem, 14:30
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Problema na rede
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Computadores sem acesso
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Lucas Martins
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    Operacional
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 08
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Rede
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-high">
+                                    Alta
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-finished">
+                                    Finalizado
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-finished">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    09:12
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             CHAMADO 000117
+                        ================================================== -->
+
+                        <tr
+                            data-status="cancelado"
+                            data-priority="baixa"
+                            data-category="software"
+                            data-sla="normal"
+                            data-city="londrina"
+                            data-branch="matriz"
+                            data-technician="samuel"
+                            data-date="30dias"
+                            data-search="000117 instalação software fernando lima ti sala 10 londrina matriz"
+                        >
+
+                            <td>
+
+                                <a
+                                    href="chamado-detalhes.html"
+                                    class="fw-bold text-primary"
+                                >
+                                    #000117
+                                </a>
+
+                                <small class="d-block text-muted">
+                                    18/09/2026
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="fw-semibold">
+                                    Instalação de software
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Solicitação cancelada
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Fernando Lima
+                            </td>
+
+
+                            <td>
+
+                                <span>
+                                    TI
+                                </span>
+
+                                <small class="d-block text-muted">
+                                    Sala 10
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                Software
+                            </td>
+
+
+                            <td>
+
+                                <span class="priority priority-low">
+                                    Baixa
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status-badge status-cancelled">
+                                    Cancelado
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="sla-indicator sla-finished">
+
+                                    <i class="bi bi-dash-circle"></i>
+
+                                    --
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="text-end">
+
+                                <div class="dropdown">
+
+                                    <button
+                                        class="btn btn-sm btn-light btn-icon"
+                                        data-bs-toggle="dropdown"
+                                    >
+
+                                        <i class="bi bi-three-dots-vertical"></i>
+
+                                    </button>
+
+
+                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                        <li>
+
+                                            <a
+                                                class="dropdown-item"
+                                                href="chamado-detalhes.html"
+                                            >
+
+                                                <i class="bi bi-eye me-2"></i>
+
+                                                Visualizar
+
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SEM RESULTADOS
+            ================================================== -->
+
+            <div
+                id="noResults"
+                class="text-center py-5 d-none"
+            >
+
+                <i
+                    class="bi bi-search fs-1 text-muted"
+                ></i>
+
+                <h5 class="mt-3">
+                    Nenhum chamado encontrado
+                </h5>
+
+                <p class="text-muted mb-0">
+                    Tente alterar os filtros ou os termos da busca.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PAGINAÇÃO
+            ================================================== -->
+
+            <div class="p-4 border-top">
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+                    <small class="text-muted">
+
+                        Mostrando
+                        <strong id="paginationStart">
+                            1
+                        </strong>
+                        -
+                        <strong id="paginationEnd">
+                            8
+                        </strong>
+                        de
+                        <strong id="paginationTotal">
+                            8
+                        </strong>
+
+                    </small>
+
+
+                    <nav>
+
+                        <ul class="pagination pagination-sm mb-0">
+
+                            <li
+                                class="page-item disabled"
+                                id="previousPage"
+                            >
+
+                                <button class="page-link">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+
+                            </li>
+
+
+                            <li class="page-item active">
+
+                                <button class="page-link">
+                                    1
+                                </button>
+
+                            </li>
+
+
+                            <li class="page-item">
+
+                                <button class="page-link">
+                                    2
+                                </button>
+
+                            </li>
+
+
+                            <li class="page-item">
+
+                                <button class="page-link">
+                                    3
+                                </button>
+
+                            </li>
+
+
+                            <li class="page-item">
+
+                                <button class="page-link">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     MODAL EXPORTAÇÃO
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="exportModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Exportar chamados
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <p class="text-muted">
+                    Escolha o formato desejado:
+                </p>
+
+
+                <div class="d-grid gap-2">
+
+
+                    <button
+                        class="btn btn-outline-success"
+                        onclick="exportTickets('excel')"
+                    >
+
+                        <i class="bi bi-file-earmark-excel me-2"></i>
+
+                        Excel
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-outline-primary"
+                        onclick="exportTickets('csv')"
+                    >
+
+                        <i class="bi bi-filetype-csv me-2"></i>
+
+                        CSV
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-outline-danger"
+                        onclick="exportTickets('pdf')"
+                    >
+
+                        <i class="bi bi-file-earmark-pdf me-2"></i>
+
+                        PDF
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script src="../assets/js/app.js"></script>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const priorityFilter =
+        document.getElementById("priorityFilter");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+    const slaFilter =
+        document.getElementById("slaFilter");
+
+    const cityFilter =
+        document.getElementById("cityFilter");
+
+    const branchFilter =
+        document.getElementById("branchFilter");
+
+    const technicianFilter =
+        document.getElementById("technicianFilter");
+
+    const dateFilter =
+        document.getElementById("dateFilter");
+
+    const clearFilters =
+        document.getElementById("clearFilters");
+
+    const refreshButton =
+        document.getElementById("refreshButton");
+
+    const exportButton =
+        document.getElementById("exportButton");
+
+    const rows =
+        Array.from(
+            document.querySelectorAll("#ticketsBody tr")
+        );
+
+    const visibleCount =
+        document.getElementById("visibleCount");
+
+    const noResults =
+        document.getElementById("noResults");
+
+
+
+    /* =====================================================
+       FILTRAR CHAMADOS
+    ===================================================== */
+
+    function filterTickets() {
+
+        const search =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+        const status =
+            statusFilter.value;
+
+        const priority =
+            priorityFilter.value;
+
+        const category =
+            categoryFilter.value;
+
+        const sla =
+            slaFilter.value;
+
+        const city =
+            cityFilter.value;
+
+        const branch =
+            branchFilter.value;
+
+        const technician =
+            technicianFilter.value;
+
+        const date =
+            dateFilter.value;
+
+
+        let count = 0;
+
+
+        rows.forEach(row => {
+
+            const rowSearch =
+                row.dataset.search || "";
+
+            const matchesSearch =
+                !search ||
+                rowSearch.includes(search);
+
+            const matchesStatus =
+                !status ||
+                row.dataset.status === status;
+
+            const matchesPriority =
+                !priority ||
+                row.dataset.priority === priority;
+
+            const matchesCategory =
+                !category ||
+                row.dataset.category === category;
+
+            const matchesSla =
+                !sla ||
+                row.dataset.sla === sla;
+
+            const matchesCity =
+                !city ||
+                row.dataset.city === city;
+
+            const matchesBranch =
+                !branch ||
+                row.dataset.branch === branch;
+
+            const matchesTechnician =
+                !technician ||
+                row.dataset.technician === technician;
+
+            const matchesDate =
+                !date ||
+                row.dataset.date === date;
+
+
+            const visible =
+                matchesSearch &&
+                matchesStatus &&
+                matchesPriority &&
+                matchesCategory &&
+                matchesSla &&
+                matchesCity &&
+                matchesBranch &&
+                matchesTechnician &&
+                matchesDate;
+
+
+            if (visible) {
+
+                row.classList.remove("d-none");
+
+                count++;
+
+            } else {
+
+                row.classList.add("d-none");
+
+            }
+
+        });
+
+
+        visibleCount.textContent =
+            count;
+
+
+        document.getElementById(
+            "paginationTotal"
+        ).textContent = count;
+
+
+        document.getElementById(
+            "paginationStart"
+        ).textContent = count > 0 ? 1 : 0;
+
+
+        document.getElementById(
+            "paginationEnd"
+        ).textContent = count;
+
+
+        if (count === 0) {
+
+            noResults.classList.remove("d-none");
+
+        } else {
+
+            noResults.classList.add("d-none");
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       EVENTOS DOS FILTROS
+    ===================================================== */
+
+    [
+
+        searchInput,
+        statusFilter,
+        priorityFilter,
+        categoryFilter,
+        slaFilter,
+        cityFilter,
+        branchFilter,
+        technicianFilter,
+        dateFilter
+
+    ].forEach(element => {
+
+        element.addEventListener(
+            "input",
+            filterTickets
+        );
+
+        element.addEventListener(
+            "change",
+            filterTickets
+        );
+
+    });
+
+
+
+    /* =====================================================
+       LIMPAR FILTROS
+    ===================================================== */
+
+    clearFilters.addEventListener(
+        "click",
+        () => {
+
+            searchInput.value = "";
+
+            statusFilter.value = "";
+
+            priorityFilter.value = "";
+
+            categoryFilter.value = "";
+
+            slaFilter.value = "";
+
+            cityFilter.value = "";
+
+            branchFilter.value = "";
+
+            technicianFilter.value = "";
+
+            dateFilter.value = "";
+
+            filterTickets();
+
+        }
+    );
+
+
+
+    /* =====================================================
+       ATUALIZAR
+    ===================================================== */
+
+    refreshButton.addEventListener(
+        "click",
+        () => {
+
+            refreshButton.disabled = true;
+
+            refreshButton.innerHTML = `
+
+                <span
+                    class="spinner-border spinner-border-sm"
+                ></span>
+
+            `;
+
+
+            setTimeout(() => {
+
+                refreshButton.disabled = false;
+
+                refreshButton.innerHTML = `
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                `;
+
+            }, 700);
+
+        }
+    );
+
+
+
+    /* =====================================================
+       EXPORTAR
+    ===================================================== */
+
+    exportButton.addEventListener(
+        "click",
+        () => {
+
+            const modal =
+                new bootstrap.Modal(
+                    document.getElementById(
+                        "exportModal"
+                    )
+                );
+
+            modal.show();
+
+        }
+    );
+
+
+
+    /* =====================================================
+       FILTRO INICIAL
+    ===================================================== */
+
+    filterTickets();
+
+});
+
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+function assumeTicket(ticket) {
+
+    if (
+        confirm(
+            `Deseja assumir o chamado ${ticket}?`
+        )
+    ) {
+
+        alert(
+            `Chamado ${ticket} assumido com sucesso.`
+        );
+
+    }
+
+}
+
+
+
+function cancelTicket(ticket) {
+
+    if (
+        confirm(
+            `Deseja realmente cancelar o chamado ${ticket}?`
+        )
+    ) {
+
+        alert(
+            `Chamado ${ticket} cancelado.`
+        );
+
+    }
+
+}
+
+
+
+function reopenTicket(ticket) {
+
+    if (
+        confirm(
+            `Deseja reabrir o chamado ${ticket}?`
+        )
+    ) {
+
+        alert(
+            `Chamado ${ticket} reaberto.`
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   EXPORTAÇÃO TEMPORÁRIA
+========================================================= */
+
+function exportTickets(type) {
+
+    if (type === "excel") {
+
+        alert(
+            "Exportação para Excel será conectada ao backend posteriormente."
+        );
+
+    }
+
+    if (type === "csv") {
+
+        alert(
+            "Exportação para CSV será conectada ao backend posteriormente."
+        );
+
+    }
+
+    if (type === "pdf") {
+
+        alert(
+            "Exportação para PDF será conectada ao backend posteriormente."
+        );
+
+    }
+
+}
+
+</script>
+
+
+<style>
+
+/* =========================================================
+   SLA
+========================================================= */
+
+.sla-indicator {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+.sla-ok {
+
+    color: #16a34a;
+
+}
+
+
+.sla-late {
+
+    color: #dc2626;
+
+}
+
+
+.sla-finished {
+
+    color: #64748b;
+
+}
+
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group-text {
+
+    border-color: #e2e8f0;
+
+    color: #64748b;
+
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+#ticketsTable tbody tr {
+
+    transition: background-color .15s ease;
+
+}
+
+
+#ticketsTable tbody tr:hover {
+
+    background-color: #f8fafc;
+
+}
+
+
+#ticketsTable th {
+
+    white-space: nowrap;
+
+}
+
+
+#ticketsTable td {
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   PAGINAÇÃO
+========================================================= */
+
+.pagination .page-link {
+
+    color: #2563eb;
+
+}
+
+
+.pagination .active .page-link {
+
+    background-color: #2563eb;
+
+    border-color: #2563eb;
+
+}
+
+
+@media (max-width: 768px) {
+
+    #ticketsTable {
+
+        min-width: 1250px;
+
+    }
+
+}
+
+</style>
+
+
+</body>
+
+</html>

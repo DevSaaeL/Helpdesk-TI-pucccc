@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Abrir chamado | HelpDesk TI</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f5f6f8;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .qr-reader-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .qr-reader-card {
+            width: 100%;
+            max-width: 460px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, .10);
+            border: 1px solid #e2e8f0;
+        }
+
+        .qr-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 18px;
+            border-radius: 14px;
+            background: #a6192e;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .qr-reader-title {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 700;
+            color: #172033;
+        }
+
+        .qr-reader-description {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        #reader {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .location-box {
+            background: #fdf0f2;
+            border: 1px solid #f2c8d0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .location-box strong {
+            color: #a6192e;
+        }
+
+        .location-box span {
+            display: block;
+            color: #475569;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .btn-puc {
+            width: 100%;
+            min-height: 48px;
+            background: #a6192e;
+            border: 1px solid #a6192e;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        .btn-puc:hover {
+            background: #8b1426;
+            border-color: #8b1426;
+            color: #ffffff;
+        }
+
+        .manual-link {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .manual-link a {
+            color: #a6192e;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .manual-link a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="qr-reader-page">
+
+    <div class="qr-reader-card">
+
+        <div class="qr-logo">
+            <i class="bi bi-qr-code-scan"></i>
+        </div>
+
+        <h1 class="qr-reader-title">
+            Abrir chamado
+        </h1>
+
+        <p class="qr-reader-description">
+            Aponte a câmera para o QR Code disponível
+            no local onde você precisa de atendimento.
+        </p>
+
+        <div id="reader"></div>
+
+        <div
+            id="resultado"
+            class="hidden"
+        >
+
+            <div class="location-box">
+
+                <strong>
+                    <i class="bi bi-geo-alt-fill me-1"></i>
+                    Local identificado
+                </strong>
+
+                <span id="localIdentificado"></span>
+
+            </div>
+
+            <button
+                class="btn btn-puc mt-3"
+                id="btnAbrirChamado"
+            >
+                <i class="bi bi-ticket-detailed me-2"></i>
+                Abrir chamado
+            </button>
+
+        </div>
+
+        <div
+            id="erro"
+            class="alert alert-danger hidden mt-3"
+        ></div>
+
+        <div class="manual-link">
+
+            <a href="novo-chamado.html">
+                <i class="bi bi-pencil me-1"></i>
+                Abrir chamado manualmente
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script
+    src="https://unpkg.com/html5-qrcode"
+    type="text/javascript">
+</script>
+
+<script>
+
+let dadosQR = null;
+
+function sucessoLeitura(decodedText) {
+
+    try {
+
+        const url =
+            new URL(decodedText);
+
+        const parametros =
+            url.searchParams;
+
+        const qr =
+            parametros.get("qr");
+
+        const unidade =
+            parametros.get("unidade");
+
+        const bloco =
+            parametros.get("bloco");
+
+        const sala =
+            parametros.get("sala");
+
+        if (!qr) {
+            throw new Error(
+                "QR Code inválido."
+            );
+        }
+
+        dadosQR = {
+            qr,
+            unidade,
+            bloco,
+            sala
+        };
+
+        let local = unidade || "";
+
+        if (bloco) {
+            local += " • " + bloco;
+        }
+
+        if (sala) {
+            local += " • Sala " + sala;
+        }
+
+        document
+            .getElementById("localIdentificado")
+            .textContent = local;
+
+        document
+            .getElementById("resultado")
+            .classList.remove("hidden");
+
+        html5QrcodeScanner.clear();
+
+    } catch (error) {
+
+        mostrarErro(
+            "Este QR Code não pertence ao sistema HelpDesk TI."
+        );
+
+    }
+}
+
+function mostrarErro(mensagem) {
+
+    const erro =
+        document.getElementById("erro");
+
+    erro.textContent = mensagem;
+
+    erro.classList.remove("hidden");
+
+    setTimeout(() => {
+        erro.classList.add("hidden");
+    }, 4000);
+}
+
+const html5QrcodeScanner =
+    new Html5QrcodeScanner(
+        "reader",
+        {
+            fps: 10,
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+        },
+        false
+    );
+
+html5QrcodeScanner.render(
+    sucessoLeitura,
+    () => {}
+);
+
+document
+    .getElementById("btnAbrirChamado")
+    .addEventListener("click", () => {
+
+        if (!dadosQR) {
+            return;
+        }
+
+        const parametros =
+            new URLSearchParams({
+                qr: dadosQR.qr,
+                unidade: dadosQR.unidade || "",
+                bloco: dadosQR.bloco || "",
+                sala: dadosQR.sala || ""
+            });
+
+        window.location.href =
+            `novo-chamado.html?${parametros.toString()}`;
+
+    });
+
+</script>
+
+</body>
+</html>

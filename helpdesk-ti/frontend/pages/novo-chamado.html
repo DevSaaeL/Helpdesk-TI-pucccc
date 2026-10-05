@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Chamado | Help Desk TI</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        body {
+            background: #f5f7fb;
+        }
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #111827;
+            color: #fff;
+            z-index: 1000;
+        }
+
+        .sidebar-logo {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-logo i {
+            font-size: 27px;
+            margin-right: 10px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 12px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            margin: 18px 12px 8px;
+            letter-spacing: 0.8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 11px 13px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #a6192e;
+            color: #fff;
+        }
+
+        .sidebar-menu a i {
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+        }
+
+        .breadcrumb-custom {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .breadcrumb-custom strong {
+            color: #111827;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #a6192e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .page-content {
+            padding: 28px;
+            max-width: 1400px;
+        }
+
+        .page-title {
+            font-size: 25px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .card-custom {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-header-custom {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .card-body-custom {
+            padding: 22px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-control,
+        .form-select {
+            border-color: #d1d5db;
+            min-height: 43px;
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #a6192e;
+            box-shadow: 0 0 0 0.2rem rgba(166, 25, 46, 0.10);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .priority-option {
+            position: relative;
+        }
+
+        .priority-option input {
+            display: none;
+        }
+
+        .priority-label {
+            display: block;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            padding: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            height: 100%;
+        }
+
+        .priority-label:hover {
+            border-color: #a6192e;
+        }
+
+        .priority-option input:checked + .priority-label {
+            border-color: #a6192e;
+            background: #fdf0f2;
+            box-shadow: 0 0 0 1px #a6192e;
+        }
+
+        .priority-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .priority-description {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .priority-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .dot-low {
+            background: #a6192e;
+        }
+
+        .dot-medium {
+            background: #f59e0b;
+        }
+
+        .dot-high {
+            background: #ef4444;
+        }
+
+        .dot-critical {
+            background: #991b1b;
+        }
+
+        .location-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .location-qr {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 15px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .location-qr.qr-active {
+            color: #047857;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+        }
+
+        .location-qr i {
+            font-size: 20px;
+        }
+
+        .attachment-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #fafafa;
+        }
+
+        .attachment-area:hover {
+            border-color: #a6192e;
+            background: #fdf0f2;
+        }
+
+        .attachment-area i {
+            font-size: 34px;
+            color: #a6192e;
+        }
+
+        .attachment-area h6 {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .attachment-area p {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+
+        .file-list {
+            margin-top: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 9px 12px;
+            margin-bottom: 7px;
+            font-size: 13px;
+            background: #fff;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            min-width: 0;
+        }
+
+        .file-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fdf0f2;
+            color: #a6192e;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .file-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 300px;
+        }
+
+        .summary-box {
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: #fdf0f2;
+            color: #a6192e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .summary-item {
+            padding: 11px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: 0;
+        }
+
+        .summary-label {
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 3px;
+        }
+
+        .summary-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #111827;
+            word-break: break-word;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+        }
+
+        .info-box {
+            background: #fdf0f2;
+            border: 1px solid #e8b8c0;
+            color: #7f1d2d;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+        }
+
+        .btn-submit {
+            min-height: 46px;
+            font-weight: 600;
+        }
+
+        .char-counter {
+            font-size: 11px;
+            color: #6b7280;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar-logo span,
+            .sidebar-menu span,
+            .sidebar-title {
+                display: none;
+            }
+
+            .sidebar-logo {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .sidebar-logo i {
+                margin: 0;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+            .summary-box {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .page-content {
+                padding: 15px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .file-name {
+                max-width: 180px;
+            }
+        }
+
+        :root {
+            --bs-primary: #a6192e;
+            --bs-primary-rgb: 166, 25, 46;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: #a6192e;
+            --bs-btn-border-color: #a6192e;
+            --bs-btn-hover-bg: #8b1426;
+            --bs-btn-hover-border-color: #8b1426;
+            --bs-btn-active-bg: #7a1020;
+            --bs-btn-active-border-color: #7a1020;
+            --bs-btn-focus-shadow-rgb: 166, 25, 46;
+        }
+
+        .text-primary {
+            color: #a6192e !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <i class="bi bi-headset"></i>
+            <span class="fw-bold">Help Desk TI</span>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <div class="sidebar-title">
+                Principal
+            </div>
+
+            <a href="dashboard.html">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="chamados.html">
+                <i class="bi bi-ticket-detailed"></i>
+                <span>Chamados</span>
+            </a>
+
+            <a href="novo-chamado.html" class="active">
+                <i class="bi bi-plus-circle"></i>
+                <span>Novo chamado</span>
+            </a>
+
+            <a href="meus-chamados.html">
+                <i class="bi bi-person-lines-fill"></i>
+                <span>Meus chamados</span>
+            </a>
+
+            <a href="notificacoes.html">
+                <i class="bi bi-bell"></i>
+                <span>Notificações</span>
+            </a>
+
+            <div class="sidebar-title">
+                Administração
+            </div>
+
+            <a href="usuarios.html">
+                <i class="bi bi-people"></i>
+                <span>Usuários</span>
+            </a>
+
+            <a href="filiais.html">
+                <i class="bi bi-building"></i>
+                <span>Filiais</span>
+            </a>
+
+            <a href="qr-codes.html">
+                <i class="bi bi-qr-code"></i>
+                <span>QR Codes</span>
+            </a>
+
+            <a href="relatorios.html">
+                <i class="bi bi-bar-chart"></i>
+                <span>Relatórios</span>
+            </a>
+
+            <div class="sidebar-title">
+                Conta
+            </div>
+
+            <a href="perfil.html">
+                <i class="bi bi-person-circle"></i>
+                <span>Meu perfil</span>
+            </a>
+
+        </nav>
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="breadcrumb-custom">
+                <i class="bi bi-plus-circle me-1"></i>
+                Chamados /
+                <strong>Novo chamado</strong>
+            </div>
+
+            <div class="user-area">
+
+                <div class="text-end d-none d-sm-block">
+                    <div class="fw-semibold" style="font-size: 14px;">
+                        Samuel
+                    </div>
+
+                    <div class="text-muted" style="font-size: 11px;">
+                        Técnico de TI
+                    </div>
+                </div>
+
+                <div class="user-avatar">
+                    SG
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="page-content">
+
+            <div class="mb-4">
+
+                <div class="page-title">
+                    Abrir novo chamado
+                </div>
+
+                <div class="page-subtitle">
+                    Informe os detalhes do problema para que a equipe de TI possa realizar o atendimento.
+                </div>
+
+            </div>
+
+
+            <form id="ticketForm" novalidate>
+
+                <div class="row g-4">
+
+                    <!-- COLUNA PRINCIPAL -->
+                    <div class="col-lg-8">
+
+                        <!-- INFORMAÇÕES -->
+                        <div class="card-custom">
+
+                            <div class="card-header-custom">
+                                <i class="bi bi-ticket-detailed me-2"></i>
+                                Informações do chamado
+                            </div>
+
+                            <div class="card-body-custom">
+
+                                <div class="mb-4">
+
+                                    <label class="form-label" for="titulo">
+                                        Título do chamado
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="titulo"
+                                        maxlength="150"
+                                        placeholder="Ex.: Computador não liga"
+                                        required
+                                    >
+
+                                    <div class="char-counter">
+                                        <span id="tituloCounter">0</span>/150
+                                    </div>
+
+                                </div>
+
+
+                                <div class="mb-4">
+
+                                    <label class="form-label" for="descricao">
+                                        Descrição do problema
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <textarea
+                                        class="form-control"
+                                        id="descricao"
+                                        maxlength="2000"
+                                        placeholder="Descreva detalhadamente o que aconteceu..."
+                                        required
+                                    ></textarea>
+
+                                    <div class="char-counter">
+                                        <span id="descricaoCounter">0</span>/2000
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
+
+                                        <label class="form-label" for="categoria">
+                                            Categoria
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <select
+                                            class="form-select"
+                                            id="categoria"
+                                            required
+                                        >
+
+                                            <option value="">
+                                                Selecione uma categoria
+                                            </option>
+
+                                            <option value="computador">
+                                                Computador
+                                            </option>
+
+                                            <option value="notebook">
+                                                Notebook
+                                            </option>
+
+                                            <option value="internet">
+                                                Internet Cabeada
+                                            </option>
+
+                                            <option value="wifi">
+                                                Wi-Fi
+                                            </option>
+
+                                            <option value="sistema">
+                                                Sistema (Tasy)
+                                            </option>
+
+                                            <option value="impressora">
+                                                Impressora
+                                            </option>
+
+                                            <option value="telefonia">
+                                                Telefonia
+                                            </option>
+
+                                            <option value="projetor">
+                                                Projetor
+                                            </option>
+
+                                            <option value="Reset Senha MFA">
+                                                Reset Senha MFA
+                                            </option>
+
+                                            <option value="som">
+                                                Som
+                                            </option>
+
+                                            <option value="outros">
+                                                Outros
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label class="form-label" for="tipoAtendimento">
+                                            Tipo de atendimento
+                                        </label>
+
+                                        <select
+                                            class="form-select"
+                                            id="tipoAtendimento"
+                                        >
+
+                                            <option value="incidente">
+                                                Incidente
+                                            </option>
+
+                                            <option value="solicitacao">
+                                                Solicitação
+                                            </option>
+
+                                            <option value="duvida">
+                                                Dúvida
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- PRIORIDADE -->
+                        <div class="card-custom">
+
+                            <div class="card-header-custom">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                Prioridade
+                            </div>
+
+                            <div class="card-body-custom">
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-3">
+
+                                        <div class="priority-option">
+
+                                            <input
+                                                type="radio"
+                                                name="prioridade"
+                                                id="prioridadeBaixa"
+                                                value="baixa"
+                                                checked
+                                            >
+
+                                            <label
+                                                for="prioridadeBaixa"
+                                                class="priority-label"
+                                            >
+
+                                                <div class="priority-title">
+                                                    <span class="priority-dot dot-low"></span>
+                                                    Baixa
+                                                </div>
+
+                                                <div class="priority-description">
+                                                    Problema sem impacto imediato.
+                                                </div>
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-3">
+
+                                        <div class="priority-option">
+
+                                            <input
+                                                type="radio"
+                                                name="prioridade"
+                                                id="prioridadeMedia"
+                                                value="media"
+                                            >
+
+                                            <label
+                                                for="prioridadeMedia"
+                                                class="priority-label"
+                                            >
+
+                                                <div class="priority-title">
+                                                    <span class="priority-dot dot-medium"></span>
+                                                    Média
+                                                </div>
+
+                                                <div class="priority-description">
+                                                    Impacto parcial no trabalho.
+                                                </div>
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-3">
+
+                                        <div class="priority-option">
+
+                                            <input
+                                                type="radio"
+                                                name="prioridade"
+                                                id="prioridadeAlta"
+                                                value="alta"
+                                            >
+
+                                            <label
+                                                for="prioridadeAlta"
+                                                class="priority-label"
+                                            >
+
+                                                <div class="priority-title">
+                                                    <span class="priority-dot dot-high"></span>
+                                                    Alta
+                                                </div>
+
+                                                <div class="priority-description">
+                                                    Afeta uma atividade importante.
+                                                </div>
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-3">
+
+                                        <div class="priority-option">
+
+                                            <input
+                                                type="radio"
+                                                name="prioridade"
+                                                id="prioridadeCritica"
+                                                value="critica"
+                                            >
+
+                                            <label
+                                                for="prioridadeCritica"
+                                                class="priority-label"
+                                            >
+
+                                                <div class="priority-title">
+                                                    <span class="priority-dot dot-critical"></span>
+                                                    Crítica
+                                                </div>
+
+                                                <div class="priority-description">
+                                                    Serviço ou operação parada.
+                                                </div>
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- LOCALIZAÇÃO -->
+                        <div class="card-custom">
+
+                            <div class="card-header-custom">
+                                <i class="bi bi-geo-alt me-2"></i>
+                                Localização do atendimento
+                            </div>
+
+                            <div class="card-body-custom">
+
+                                <div
+                                    class="location-box"
+                                    id="locationBox"
+                                >
+
+                                    <div
+                                        class="location-qr"
+                                        id="qrLocationInfo"
+                                    >
+
+                                        <i class="bi bi-qr-code"></i>
+
+                                        <span>
+                                            Localização informada manualmente.
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="row g-3">
+
+                                        <div class="col-md-6">
+
+                                            <label
+                                                class="form-label"
+                                                for="cidade"
+                                            >
+                                                Cidade
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="cidade"
+                                                required
+                                            >
+
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="londrina">
+                                                    Londrina
+                                                </option>
+
+                                                <option value="cambe">
+                                                    Cambé
+                                                </option>
+
+                                                <option value="arapongas">
+                                                    Arapongas
+                                                </option>
+
+                                                <option value="outra">
+                                                    Outra
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="col-md-6">
+
+                                            <label
+                                                class="form-label"
+                                                for="filial"
+                                            >
+                                                Filial / Unidade
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="filial"
+                                                required
+                                            >
+
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="matriz">
+                                                    Matriz
+                                                </option>
+
+                                                <option value="filial-01">
+                                                    Filial 01
+                                                </option>
+
+                                                <option value="filial-02">
+                                                    Filial 02
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+
+                                            <label
+                                                class="form-label"
+                                                for="bloco"
+                                            >
+                                                Bloco
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="bloco"
+                                            >
+
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="a">
+                                                    Bloco A
+                                                </option>
+
+                                                <option value="b">
+                                                    Bloco B
+                                                </option>
+
+                                                <option value="c">
+                                                    Bloco C
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+
+                                            <label
+                                                class="form-label"
+                                                for="sala"
+                                            >
+                                                Sala
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="sala"
+                                            >
+
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="101">
+                                                    Sala 101
+                                                </option>
+
+                                                <option value="102">
+                                                    Sala 102
+                                                </option>
+
+                                                <option value="201">
+                                                    Sala 201
+                                                </option>
+
+                                                <option value="202">
+                                                    Sala 202
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+
+                                            <label
+                                                class="form-label"
+                                                for="setor"
+                                            >
+                                                Setor
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="setor"
+                                                required
+                                            >
+
+                                                <option value="">
+                                                    Selecione
+                                                </option>
+
+                                                <option value="ti">
+                                                    Tecnologia da Informação
+                                                </option>
+
+                                                <option value="rh">
+                                                    Recursos Humanos
+                                                </option>
+
+                                                <option value="financeiro">
+                                                    Financeiro
+                                                </option>
+
+                                                <option value="administrativo">
+                                                    Administrativo
+                                                </option>
+
+                                                <option value="comercial">
+                                                    Comercial
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ANEXOS -->
+                        <div class="card-custom">
+
+                            <div class="card-header-custom">
+                                <i class="bi bi-paperclip me-2"></i>
+                                Anexos
+                            </div>
+
+                            <div class="card-body-custom">
+
+                                <input
+                                    type="file"
+                                    id="attachments"
+                                    multiple
+                                    hidden
+                                    accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx,.txt"
+                                >
+
+                                <div
+                                    class="attachment-area"
+                                    id="attachmentArea"
+                                >
+
+                                    <i class="bi bi-cloud-arrow-up"></i>
+
+                                    <h6>
+                                        Clique para adicionar arquivos
+                                    </h6>
+
+                                    <p>
+                                        JPG, PNG, PDF, DOC, DOCX, XLS, XLSX ou TXT
+                                    </p>
+
+                                    <p>
+                                        Tamanho máximo permitido: 10 MB por arquivo
+                                    </p>
+
+                                </div>
+
+                                <div
+                                    class="file-list"
+                                    id="fileList"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BOTÕES -->
+                        <div class="d-flex justify-content-end gap-2 mb-4">
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="btnCancelar"
+                            >
+
+                                <i class="bi bi-x-lg me-1"></i>
+                                Cancelar
+
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-submit px-4"
+                            >
+
+                                <i class="bi bi-send me-1"></i>
+                                Abrir chamado
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COLUNA DIREITA -->
+                    <div class="col-lg-4">
+
+                        <div class="summary-box">
+
+                            <!-- RESUMO -->
+                            <div class="card-custom">
+
+                                <div class="card-body-custom">
+
+                                    <div class="summary-header mb-3">
+
+                                        <div class="summary-icon">
+                                            <i class="bi bi-clipboard-check"></i>
+                                        </div>
+
+                                        <div>
+
+                                            <div class="fw-semibold">
+                                                Resumo do chamado
+                                            </div>
+
+                                            <small class="text-muted">
+                                                Confira antes de enviar
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="summary-item">
+
+                                        <div class="summary-label">
+                                            Título
+                                        </div>
+
+                                        <div
+                                            class="summary-value"
+                                            id="summaryTitulo"
+                                        >
+                                            Não informado
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="summary-item">
+
+                                        <div class="summary-label">
+                                            Categoria
+                                        </div>
+
+                                        <div
+                                            class="summary-value"
+                                            id="summaryCategoria"
+                                        >
+                                            Não informado
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="summary-item">
+
+                                        <div class="summary-label">
+                                            Prioridade
+                                        </div>
+
+                                        <div
+                                            class="summary-value"
+                                            id="summaryPrioridade"
+                                        >
+                                            Baixa
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="summary-item">
+
+                                        <div class="summary-label">
+                                            Localização
+                                        </div>
+
+                                        <div
+                                            class="summary-value"
+                                            id="summaryLocalizacao"
+                                        >
+                                            Não informado
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="summary-item">
+
+                                        <div class="summary-label">
+                                            Solicitante
+                                        </div>
+
+                                        <div class="summary-value">
+                                            Samuel
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SLA -->
+                            <div class="card-custom">
+
+                                <div class="card-body-custom">
+
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+
+                                        <i class="bi bi-stopwatch text-primary fs-5"></i>
+
+                                        <strong>
+                                            SLA de atendimento
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="info-box">
+
+                                        <i class="bi bi-info-circle me-1"></i>
+
+                                        Após a abertura, o chamado será
+                                        encaminhado automaticamente para a
+                                        equipe de suporte responsável pela
+                                        unidade.
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- IMPORTANTE -->
+                            <div class="card-custom">
+
+                                <div class="card-body-custom">
+
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+
+                                        <i class="bi bi-shield-check text-success fs-5"></i>
+
+                                        <strong>
+                                            Antes de abrir
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="warning-box">
+
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+
+                                        Evite inserir senhas ou outras
+                                        informações confidenciais na descrição
+                                        do chamado.
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL SUCESSO -->
+    <div
+        class="modal fade"
+        id="modalSucesso"
+        tabindex="-1"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+    >
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-body text-center p-4">
+
+                    <div
+                        class="mx-auto mb-3"
+                        style="
+                            width: 65px;
+                            height: 65px;
+                            border-radius: 50%;
+                            background: #ecfdf5;
+                            color: #059669;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 30px;
+                        "
+                    >
+
+                        <i class="bi bi-check-lg"></i>
+
+                    </div>
+
+
+                    <h5 class="fw-bold">
+                        Chamado aberto com sucesso!
+                    </h5>
+
+
+                    <p class="text-muted mb-3">
+                        Seu chamado foi registrado e encaminhado
+                        para a equipe responsável.
+                    </p>
+
+
+                    <div class="bg-light rounded p-3 mb-3">
+
+                        <small class="text-muted">
+                            Número do chamado
+                        </small>
+
+                        <div
+                            class="fw-bold fs-4 text-primary"
+                            id="numeroChamado"
+                        >
+                            #000125
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary w-100"
+                        id="btnVerChamado"
+                    >
+                        Ver chamado
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-link text-muted w-100 mt-1"
+                        id="btnNovoChamado"
+                    >
+                        Abrir outro chamado
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOOTSTRAP -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <script src="../assets/js/app.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const ticketForm = document.getElementById("ticketForm");
+
+            const titulo = document.getElementById("titulo");
+            const descricao = document.getElementById("descricao");
+
+            const tituloCounter =
+                document.getElementById("tituloCounter");
+
+            const descricaoCounter =
+                document.getElementById("descricaoCounter");
+
+            const categoria =
+                document.getElementById("categoria");
+
+            const cidade =
+                document.getElementById("cidade");
+
+            const filial =
+                document.getElementById("filial");
+
+            const bloco =
+                document.getElementById("bloco");
+
+            const sala =
+                document.getElementById("sala");
+
+            const setor =
+                document.getElementById("setor");
+
+            const attachmentInput =
+                document.getElementById("attachments");
+
+            const attachmentArea =
+                document.getElementById("attachmentArea");
+
+            const fileList =
+                document.getElementById("fileList");
+
+            const modalSucesso =
+                document.getElementById("modalSucesso");
+
+            let arquivosSelecionados = [];
+
+
+            /*
+             * ==========================================
+             * CONTADORES
+             * ==========================================
+             */
+
+            titulo.addEventListener("input", function () {
+
+                tituloCounter.textContent =
+                    this.value.length;
+
+                document.getElementById(
+                    "summaryTitulo"
+                ).textContent =
+                    this.value.trim() || "Não informado";
+
+            });
+
+
+            descricao.addEventListener("input", function () {
+
+                descricaoCounter.textContent =
+                    this.value.length;
+
+            });
+
+
+            /*
+             * ==========================================
+             * CATEGORIA
+             * ==========================================
+             */
+
+            categoria.addEventListener("change", function () {
+
+                const texto =
+                    this.options[this.selectedIndex].text;
+
+                document.getElementById(
+                    "summaryCategoria"
+                ).textContent =
+                    this.value ? texto : "Não informado";
+
+            });
+
+
+            /*
+             * ==========================================
+             * PRIORIDADE
+             * ==========================================
+             */
+
+            const prioridadeInputs =
+                document.querySelectorAll(
+                    'input[name="prioridade"]'
+                );
+
+
+            prioridadeInputs.forEach(function (input) {
+
+                input.addEventListener("change", function () {
+
+                    const tituloPrioridade =
+                        this.nextElementSibling
+                            .querySelector(".priority-title")
+                            .textContent
+                            .trim();
+
+                    document.getElementById(
+                        "summaryPrioridade"
+                    ).textContent =
+                        tituloPrioridade;
+
+                });
+
+            });
+
+
+            /*
+             * ==========================================
+             * LOCALIZAÇÃO
+             * ==========================================
+             */
+
+            [
+                cidade,
+                filial,
+                bloco,
+                sala,
+                setor
+            ].forEach(function (element) {
+
+                element.addEventListener(
+                    "change",
+                    atualizarLocalizacao
+                );
+
+            });
+
+
+            function atualizarLocalizacao() {
+
+                const valores = [];
+
+                if (cidade.value) {
+
+                    valores.push(
+                        cidade.options[
+                            cidade.selectedIndex
+                        ].text
+                    );
+
+                }
+
+                if (filial.value) {
+
+                    valores.push(
+                        filial.options[
+                            filial.selectedIndex
+                        ].text
+                    );
+
+                }
+
+                if (bloco.value) {
+
+                    valores.push(
+                        bloco.options[
+                            bloco.selectedIndex
+                        ].text
+                    );
+
+                }
+
+                if (sala.value) {
+
+                    valores.push(
+                        sala.options[
+                            sala.selectedIndex
+                        ].text
+                    );
+
+                }
+
+                if (setor.value) {
+
+                    valores.push(
+                        setor.options[
+                            setor.selectedIndex
+                        ].text
+                    );
+
+                }
+
+                document.getElementById(
+                    "summaryLocalizacao"
+                ).textContent =
+                    valores.length
+                        ? valores.join(" / ")
+                        : "Não informado";
+
+            }
+
+
+            /*
+             * ==========================================
+             * ANEXOS
+             * ==========================================
+             */
+
+            attachmentArea.addEventListener(
+                "click",
+                function () {
+
+                    attachmentInput.click();
+
+                }
+            );
+
+
+            attachmentInput.addEventListener(
+                "change",
+                function () {
+
+                    const novosArquivos =
+                        Array.from(this.files);
+
+
+                    novosArquivos.forEach(function (file) {
+
+                        const jaExiste =
+                            arquivosSelecionados.some(
+                                function (arquivo) {
+
+                                    return (
+                                        arquivo.name === file.name &&
+                                        arquivo.size === file.size
+                                    );
+
+                                }
+                            );
+
+
+                        if (jaExiste) {
+                            return;
+                        }
+
+
+                        if (
+                            file.size >
+                            10 * 1024 * 1024
+                        ) {
+
+                            alert(
+                                'O arquivo "' +
+                                file.name +
+                                '" ultrapassa o limite de 10 MB.'
+                            );
+
+                            return;
+
+                        }
+
+
+                        arquivosSelecionados.push(file);
+
+                    });
+
+
+                    atualizarListaArquivos();
+
+                    attachmentInput.value = "";
+
+                }
+            );
+
+
+            function atualizarListaArquivos() {
+
+                fileList.innerHTML = "";
+
+
+                arquivosSelecionados.forEach(
+                    function (file, index) {
+
+                        const item =
+                            document.createElement("div");
+
+                        item.className = "file-item";
+
+
+                        item.innerHTML = `
+                            <div class="file-info">
+
+                                <div class="file-icon">
+                                    <i class="bi bi-file-earmark"></i>
+                                </div>
+
+                                <div>
+
+                                    <div class="fw-semibold file-name">
+                                        ${escapeHtml(file.name)}
+                                    </div>
+
+                                    <small class="text-muted">
+                                        ${formatFileSize(file.size)}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-danger"
+                                data-index="${index}"
+                                title="Remover arquivo"
+                            >
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        `;
+
+
+                        const botaoRemover =
+                            item.querySelector("button");
+
+
+                        botaoRemover.addEventListener(
+                            "click",
+                            function () {
+
+                                const index =
+                                    Number(
+                                        this.dataset.index
+                                    );
+
+                                arquivosSelecionados.splice(
+                                    index,
+                                    1
+                                );
+
+                                atualizarListaArquivos();
+
+                            }
+                        );
+
+
+                        fileList.appendChild(item);
+
+                    }
+                );
+
+            }
+
+
+            function formatFileSize(bytes) {
+
+                if (bytes < 1024) {
+                    return bytes + " B";
+                }
+
+                if (bytes < 1024 * 1024) {
+
+                    return (
+                        bytes / 1024
+                    ).toFixed(1) + " KB";
+
+                }
+
+                return (
+                    bytes / (1024 * 1024)
+                ).toFixed(1) + " MB";
+
+            }
+
+
+            /*
+             * ==========================================
+             * ENVIO DO CHAMADO
+             * ==========================================
+             */
+
+            ticketForm.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    if (!ticketForm.checkValidity()) {
+
+                        ticketForm.classList.add(
+                            "was-validated"
+                        );
+
+                        return;
+
+                    }
+
+
+                    const numero =
+                        Math.floor(
+                            100000 +
+                            Math.random() * 899999
+                        );
+
+
+                    document.getElementById(
+                        "numeroChamado"
+                    ).textContent =
+                        "#" + numero;
+
+
+                    const modal =
+                        new bootstrap.Modal(
+                            modalSucesso
+                        );
+
+
+                    modal.show();
+
+                }
+            );
+
+
+            /*
+             * ==========================================
+             * CANCELAR
+             * ==========================================
+             */
+
+            document
+                .getElementById("btnCancelar")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        const confirmar =
+                            confirm(
+                                "Deseja cancelar? Todos os dados preenchidos serão perdidos."
+                            );
+
+
+                        if (confirmar) {
+
+                            window.location.href =
+                                "chamados.html";
+
+                        }
+
+                    }
+                );
+
+
+            /*
+             * ==========================================
+             * VER CHAMADO
+             * ==========================================
+             */
+
+            document
+                .getElementById("btnVerChamado")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "chamado-detalhes.html";
+
+                    }
+                );
+
+
+            /*
+             * ==========================================
+             * NOVO CHAMADO
+             * ==========================================
+             */
+
+            document
+                .getElementById("btnNovoChamado")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "novo-chamado.html";
+
+                    }
+                );
+
+
+            /*
+             * ==========================================
+             * ESCAPE HTML
+             * ==========================================
+             */
+
+            function escapeHtml(text) {
+
+                const div =
+                    document.createElement("div");
+
+                div.textContent = text;
+
+                return div.innerHTML;
+
+            }
+
+
+            /*
+             * ==========================================
+             * QR CODE
+             * ==========================================
+             */
+
+            carregarDadosDoQRCode();
+
+
+            function carregarDadosDoQRCode() {
+
+                const parametros =
+                    new URLSearchParams(
+                        window.location.search
+                    );
+
+
+                const qr =
+                    parametros.get("qr");
+
+                const filialId =
+                    parametros.get("filial");
+
+                const filialNome =
+                    parametros.get("filialNome");
+
+                const cidadeParametro =
+                    parametros.get("cidade");
+
+                const blocoParametro =
+                    parametros.get("bloco");
+
+                const salaParametro =
+                    parametros.get("sala");
+
+                const descricaoParametro =
+                    parametros.get("descricao");
+
+
+                /*
+                 * Se não veio QR Code,
+                 * mantém o formulário normal.
+                 */
+
+                if (!qr) {
+                    return;
+                }
+
+
+                /*
+                 * ==========================================
+                 * AVISO DE QR CODE
+                 * ==========================================
+                 */
+
+                const qrLocationInfo =
+                    document.getElementById(
+                        "qrLocationInfo"
+                    );
+
+
+                qrLocationInfo.classList.add(
+                    "qr-active"
+                );
+
+
+                qrLocationInfo.innerHTML = `
+                    <i class="bi bi-qr-code-scan"></i>
+
+                    <span>
+                        Localização identificada pelo QR Code
+                        <strong>${escapeHtml(
+                            filialNome || qr
+                        )}</strong>
+                    </span>
+                `;
+
+
+                /*
+                 * ==========================================
+                 * CIDADE
+                 * ==========================================
+                 */
+
+                if (cidadeParametro) {
+
+                    selecionarCampo(
+                        cidade,
+                        cidadeParametro
+                    );
+
+                }
+
+
+                /*
+                 * ==========================================
+                 * FILIAL
+                 * ==========================================
+                 */
+
+                if (filialId) {
+
+                    selecionarCampo(
+                        filial,
+                        filialId
+                    );
+
+                }
+
+
+                /*
+                 * Caso o ID da filial não corresponda
+                 * às opções atuais, tenta pelo nome.
+                 */
+
+                if (
+                    filialNome &&
+                    !filial.value
+                ) {
+
+                    selecionarCampoPorTexto(
+                        filial,
+                        filialNome
+                    );
+
+                }
+
+
+                /*
+                 * ==========================================
+                 * BLOCO
+                 * ==========================================
+                 */
+
+                if (blocoParametro) {
+
+                    selecionarCampo(
+                        bloco,
+                        blocoParametro
+                    );
+
+                    if (!bloco.value) {
+
+                        selecionarCampoPorTexto(
+                            bloco,
+                            blocoParametro
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                 * ==========================================
+                 * SALA
+                 * ==========================================
+                 */
+
+                if (salaParametro) {
+
+                    selecionarCampo(
+                        sala,
+                        salaParametro
+                    );
+
+                    if (!sala.value) {
+
+                        selecionarCampoPorTexto(
+                            sala,
+                            salaParametro
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                 * ==========================================
+                 * DESCRIÇÃO
+                 * ==========================================
+                 */
+
+                if (descricaoParametro) {
+
+                    descricao.value =
+                        descricaoParametro;
+
+                    descricaoCounter.textContent =
+                        descricao.value.length;
+
+                }
+
+
+                /*
+                 * Atualiza o resumo
+                 */
+
+                atualizarLocalizacao();
+
+            }
+
+
+            /*
+             * Seleciona um campo pelo value.
+             */
+
+            function selecionarCampo(
+                campo,
+                valor
+            ) {
+
+                if (!campo || !valor) {
+                    return;
+                }
+
+
+                const valorNormalizado =
+                    String(valor)
+                        .trim()
+                        .toLowerCase();
+
+
+                const optionEncontrada =
+                    Array.from(
+                        campo.options
+                    ).find(
+                        function (option) {
+
+                            return (
+                                String(option.value)
+                                    .trim()
+                                    .toLowerCase() ===
+                                valorNormalizado
+                            );
+
+                        }
+                    );
+
+
+                if (optionEncontrada) {
+
+                    campo.value =
+                        optionEncontrada.value;
+
+                    campo.dispatchEvent(
+                        new Event("change")
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Seleciona um campo pelo texto
+             * da opção.
+             */
+
+            function selecionarCampoPorTexto(
+                campo,
+                texto
+            ) {
+
+                if (!campo || !texto) {
+                    return;
+                }
+
+
+                const textoNormalizado =
+                    String(texto)
+                        .trim()
+                        .toLowerCase();
+
+
+                const optionEncontrada =
+                    Array.from(
+                        campo.options
+                    ).find(
+                        function (option) {
+
+                            return (
+                                option.text
+                                    .trim()
+                                    .toLowerCase() ===
+                                textoNormalizado
+                            );
+
+                        }
+                    );
+
+
+                if (optionEncontrada) {
+
+                    campo.value =
+                        optionEncontrada.value;
+
+                    campo.dispatchEvent(
+                        new Event("change")
+                    );
+
+                }
+
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
